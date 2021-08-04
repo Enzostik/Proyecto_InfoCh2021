@@ -1,0 +1,15 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block content %}
+<div class="text-center">
+<h2>ERROR 404 </h2>
+
+<p>Página no encontrada. Error 404.</p>
+
+<ul>
+<li><a href={% url 'home' %} class="text-white">Volver a la página principal.</a>
+</li>
+</ul>
+</div>
+{% endblock content %}

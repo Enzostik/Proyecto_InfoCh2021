@@ -1,0 +1,13 @@
+{% load static %}
+<footer class="text-muted text-center py-5">
+  <div class="container">
+    <p class="float-end mb-1">
+      <a href="#">Volver arriba</a>
+    </p>
+    <p class="float-center mb-2">&copy; Bootstrap - Informatorio 2021, Chaco, Argentina</p>
+    {% if user.is_authenticated %}
+    <p><a href={% url 'logout'%} class="float-center mb-1">Log out</a></p>
+    {% endif %}
+  </div>
+</footer>
+

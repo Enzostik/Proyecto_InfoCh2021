@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'authusuario.apps.AuthusuarioConfig', #app para iniciar/crear usuarios
+    'juego_chaco.apps.JuegoChacoConfig', #app para el juego de preguntas y respuestas
 ]
 
 MIDDLEWARE = [

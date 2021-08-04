@@ -22,3 +22,5 @@ urlpatterns = [
     path('',include('authusuario.urls')),
     path('admin/', admin.site.urls),
 ]
+
+handler404=views.page_not_found #Pagina no encontrada

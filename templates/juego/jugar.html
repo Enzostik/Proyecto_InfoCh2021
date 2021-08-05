@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block titulo %}- Jugar{% endblock  %}
+
+{% block load_scr %}
+<link href={% static 'css/example.css' %} rel="stylesheet">
+{% endblock  %}
+
+{% block content %}
+<p>{{juego}}</p>
+{% endblock  %}
+
+{% block load_js %}
+<script src={% static 'js/example.js' %} ></script>
+{% endblock  %}

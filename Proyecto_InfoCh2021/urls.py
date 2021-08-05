@@ -19,6 +19,7 @@ from . import views
 
 urlpatterns = [
     path('',views.index, name='home'),
+    path('partida/',include('juego_chaco.urls')),
     path('',include('authusuario.urls')),
     path('admin/', admin.site.urls),
 ]

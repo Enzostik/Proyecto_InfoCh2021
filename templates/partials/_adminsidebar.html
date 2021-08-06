@@ -13,34 +13,39 @@
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
       <li class="nav-item">
-        <a href="#" class="nav-link active" aria-current="page">
+        <a href={% url 'mi_useradmin' 'usr' %} class="nav-link text-white" aria-current="page">
           <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"/></svg>
-          Usuarios
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-link text-white">
-          <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"/></svg>
-          Actividad
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-link text-white">
-          <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"/></svg>
-          Modificar cuestionario
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-link text-white">
-          <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"/></svg>
           Administrar usuarios
         </a>
       </li>
-      <li>
+      <li class="nav-item">
+        <a href={% url 'mi_useradmin' 'prg' %} class="nav-link text-white">
+          <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"/></svg>
+          Administrar preguntas
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href={% url 'mi_useradmin' 'cst' %} class="nav-link text-white">
+          <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"/></svg>
+          Administrar actividad
+        </a>
+      </li>
+      <li class="nav-item">
         <a href="#" class="nav-link text-white">
           <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
           Enviar Feedback
         </a>
+      </li>
+      <li class="nav-item dropdown">
+        <a href="#" class="nav-link dropdown-toggle active" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"/></svg>
+          Administradores
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <li><a class="dropdown-item" href="#">Usuario1</a></li>
+          <li><a class="dropdown-item" href="#">Usuario2</a></li>
+          <li><a class="dropdown-item" href="#">Usuario3</a></li>
+        </ul>
       </li>
     </ul>
     <hr>

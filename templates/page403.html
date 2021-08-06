@@ -1,0 +1,15 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block content %}
+<div class="text-center">
+<h2 class="tittle">PERMISO DENEGADO - ERROR 403 </h2>
+
+<p>No posees los permisos necesarios para ingresar a esta página. Error 403.</p>
+
+<ul>
+<p><a href={% url 'home' %} class="text-white">Volver a la página principal.</a>
+</p>
+</ul>
+</div>
+{% endblock content %}

@@ -111,20 +111,17 @@ def profile(request):
     return render(request,'user/profile.html',context)
 
 #Paginas solo para administradores:
-@permission_required('authusuario.es_usuario_admin')
 def admin_cuestionarios(request):
     return render(request,'admin/admin_cuestionarios.html')
 
-@permission_required('authusuario.es_usuario_admin')
 def admin_usuarios(request):
     return render(request,'admin/admin_usuarios.html')
 
-@permission_required('authusuario.es_usuario_admin')
 def admin_preguntas(request):
     return render(request,'admin/editar_preguntas.html')
 
 @login_required(login_url="login")
-@permission_required('authusuario.es_usuario_admin')
+@permission_required('authusuario.es_usuario_admin',raise_exception=True)
 def mi_useradmin(request,id):
     if id == "cst":
         return admin_cuestionarios(request)

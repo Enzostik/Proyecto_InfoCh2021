@@ -7,3 +7,6 @@ def index(request):
 
 def page_not_found(request,exception):
     return render(request,'page404.html')
+
+def page_not_perm(request,exception):
+    return render(request,'page403.html')

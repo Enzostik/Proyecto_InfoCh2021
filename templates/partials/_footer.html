@@ -1,13 +1,19 @@
 {% load static %}
-<footer class="text-muted text-center py-5">
-  <div class="container">
-    <p class="float-end mb-1">
+<footer class="footer bg-dark text-muted mt-auto py-4">
+  <div class="container-fluid">
+    <p class="float-end mb-1 me-1 me-sm-4">
       <a href="#">Volver arriba</a>
     </p>
-    <p class="float-center mb-2">&copy; Bootstrap - Informatorio 2021, Chaco, Argentina</p>
+    <p class="text-center mb-2">&copy; Bootstrap - Informatorio 2021, Chaco, Argentina</p>
     {% if user.is_authenticated %}
-    <p><a href={% url 'logout'%} class="float-center mb-1">Log out</a></p>
+      <p class="text-center"><a href={% url 'logout'%} class="float-center mb-1">Log out</a></p>
+    
+      {% if perms.authusuario.es_usuario_admin %}
+        <button type="button" class="fixed-bottom py-2 ms-1 mb-1 py-sm-4 ms-sm-4 mb-sm-4 btn btn-secondary btn-lg" data-bs-toggle="offcanvas" data-bs-target="#menuAdmin_oculto" aria-controls="menuAdmin_oculto">
+        Admin
+        </button>
+      {% endif %}
+
     {% endif %}
   </div>
 </footer>
-

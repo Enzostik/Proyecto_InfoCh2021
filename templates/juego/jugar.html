@@ -9,7 +9,14 @@
 {% endblock  %}
 
 {% block content %}
-<p>{{juego}}</p>
+<div class="container">
+{% for i,j in juego.items %}
+    <li>{{i.pk}} - ¿{{i.pregunta}}? - {{i.clasificacion}} - {{i.autor}} - {{i.fecha_creacion}} - {{i.fecha_modificacion}}</li>
+    {% for r in j%}
+        <p>{{r.pk}} - {{r.respuesta}} - {{r.es_correcta}}</p>
+    {% endfor %}
+{% endfor %}
+</div>
 {% endblock  %}
 
 {% block load_js %}

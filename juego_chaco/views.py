@@ -19,13 +19,14 @@ def jugar(request):
         print(i.pk,i.pregunta,i.clasificacion)
 
     print("Buscar las respuestas asignadas a la id de la pregunta")
-    lista_respuestas=[]
+    lista_respuestas={}
     for i in random_preguntas:
         respuestas_i=Respuesta.objects.filter(id_pregunta=i.pk)
         print("\n\nPregunta:",i)
         for j in respuestas_i:
             print(j.pk,")",j.respuesta," - ",j.es_correcta)
-        lista_respuestas+=(i,respuestas_i)
+        print({i:(respuestas_i)})
+        lista_respuestas[i]=respuestas_i
     print("\n\n",lista_respuestas)
 
     context={"juego":lista_respuestas}

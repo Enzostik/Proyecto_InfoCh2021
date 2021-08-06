@@ -1,48 +1,83 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block titulo %}- Homepage{% endblock  %}
+{% block titulo %}- Página principal{% endblock  %}
 
 {% block content %}
 <div class="container">
-    <div class="card-deck">
-        <div class="card">
-            <img class="card-img-top" src={% static 'img/w_logo.png' %} alt="100%X200" height="150">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                <div class="py-1 text-right">
-                    <a href="#" class="btn btn-primary">Go somewhere</a> <a href="#" class="btn btn-primary">Go elsewhere</a>
-                </div>
-            </div>
-            <div class="card-footer">
-                <small class="text-muted">Last updated 3 mins ago</small>
-            </div>
-        </div>
-        <div class="card">
-            <img class="card-img-top" src={% static 'img/w_logo.png' %} alt="100%X200" height="150">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                <div class="py-1 text-right">
-                    <a href="#" class="btn btn-primary">Go somewhere</a> <a href="#" class="btn btn-primary">Go elsewhere</a>
-                </div>
-            </div>
-            <div class="card-footer">
-                <small class="text-muted">Last updated 3 mins ago</small>
+    <section class="card border-light py-2 text-center">
+        <div class="row py-lg-5">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <h1 class="fw-light">Publicacion principal ejemplo</h1>
+                {% if user.is_authenticated %}
+                <p class="lead text-muted">Empezá a jugar y compartí tus partidas!</p>
+                <p>
+                    <a href={% url 'home' %} class="btn btn-primary my-1">Jugar ahora</a>
+                </p>
+                {% else %}
+                <p class="lead text-muted">Inicia sesión para poder jugar!</p>
+                <p>
+                    <a href={% url 'login' %} class="btn btn-primary my-1">Iniciar sesión</a>
+                </p>
+                {% endif %}
             </div>
         </div>
-        <div class="card">
-            <img class="card-img-top" src={% static 'img/w_logo.png' %} alt="100%X200" height="150">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-                <div class="py-1 text-right">
-                    <a href="#" class="btn btn-primary">Go somewhere</a> <a href="#" class="btn btn-primary">Go elsewhere</a>
+    </section>
+    <div class="py-4">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 ">
+            <div class="col">
+                <div class="card h-100">
+                    <img class="card-img-top" src={% static 'img/w_logo.png' %} alt="100%X200">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                        <div class="text-right" style="margin-top: auto;">
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">Hace 3 minutos</small>
+                    </div>
+                    <span class="position-absolute top-0 start-50 p-2 translate-middle badge rounded-pill bg-danger">
+                    Nuevo
+                    </span>
                 </div>
             </div>
-            <div class="card-footer">
-                <small class="text-muted">Last updated 3 mins ago</small>
+            <div class="col">
+                <div class="card h-100">
+                    <img class="card-img-top" src={% static 'img/w_logo.png' %} alt="100%X200">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+                        <div class="text-right" style="margin-top: auto;">
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">Last updated 3 mins ago</small>
+                    </div>
+                    <span class="position-absolute top-0 start-50 p-2 translate-middle badge rounded-pill bg-danger">
+                    Nuevo
+                    </span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img class="card-img-top" src={% static 'img/w_logo.png' %} alt="100%X200">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+                        <div class="text-right" style="margin-top: auto;">
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">Last updated 3 mins ago</small>
+                    </div>
+                    <span class="position-absolute top-0 start-50 p-2 translate-middle badge rounded-pill bg-danger">
+                    Nuevo
+                    </span>
+                </div>
             </div>
         </div>
     </div>

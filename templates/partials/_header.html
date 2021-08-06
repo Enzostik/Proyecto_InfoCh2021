@@ -1,43 +1,32 @@
 {% load static %}
-<header>
-  <div class="collapse bg-dark" id="navbarHeader">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-8 col-md-7 py-4">
-          <h4 class="text-white">Bienvenidos</h4>
-          <p class="text-muted">INFORMACION Y DETALLES --> ingresar texto.</p>
-        </div>
-        <div class="col-sm-4 offset-md-1 py-4">
-          <h4 class="text-white">Navegar</h4>
-          <ul class="list-unstyled">
-            <!-- un 'if' para ver si ya tiene sesion iniciada -->
-            {% if user.is_authenticated %}
-            <li><a href={% url 'profile'%} class="text-white">{{user.username}}</a><a> / </a><a href={% url 'logout'%} class="text-white">Cerrar sesion</a></li>
-            {% else %}
-            <li><a href={% url 'login'%} class="text-white">Iniciar sesion</a><a> / </a><a href={% url 'register'%} class="text-white">Registrarse</a></li>
-            {% endif %}
-
-            <!-- la href puede ser con "add-ejemplo" o cargarlo -->
-            <li><a href='#' class="text-white">Ir a 'add-ejemplo'</a></li>
-            <li><a href='#' class="text-white">Ir a 'homeapp'</a></li>
-            <li><a href="#" class="text-white">Boton de ejemplo</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="navbar navbar-dark bg-dark shadow-sm">
-    <div class="container">
-      <!-- hacer click en el icono devuelve a la url de la pag principal se puede cargar tambien como "https://...com" -->
+<header class="sticky-top">
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="container-fluid">
       <a href={% url 'home'%} class="navbar-brand d-flex align-items-center">
         <img class="me-2" src={% static 'img/w_logo.png' %} alt="" width="35" height="35">
         <strong>Proyecto Informatorio 2021</strong>
       </a>
+      
+      <div class="navbar-collapse collapse" id="navbarHeader">
+        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+        <!-- un 'if' para ver si ya tiene sesion iniciada -->
+          {% if user.is_authenticated %}
+          <li class="nav-link"><a href={% url 'profile'%} class="text-white">{{user.username}}</a><a> / </a><a href={% url 'logout'%} class="text-white">Cerrar sesion</a></li>
+          {% else %}
+          <li class="nav-link"><a href={% url 'login'%} class="text-white">Iniciar sesion</a><a> / </a><a href={% url 'register'%} class="text-white">Registrarse</a></li>
+          {% endif %}
+
+          <!-- la href puede ser con "add-ejemplo" o cargarlo -->
+          <li class="nav-link"><a href='#' class="text-white">Ir a 'add-ejemplo'</a></li>
+          <li class="nav-link"><a href='#' class="text-white">Ir a 'homeapp'</a></li>
+          <li class="nav-link"><a href="#" class="text-white">Boton de ejemplo</a></li>
+        </ul>
+      </div>
       <div class="card text-center text-white border-light" style="width: 12rem;">
       <p class="card-text mb-1" >{% if user.is_authenticated %}<a href={% url 'profile'%} class="text-white"><b>{{user}}</b></a>{% else %} Sin sesion iniciada {% endif %}</p></div>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
     </div>
-  </div>
+  </nav>
 </header>

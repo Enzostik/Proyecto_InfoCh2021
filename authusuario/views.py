@@ -1,4 +1,4 @@
-from django.http.response import HttpResponseRedirect
+from django.http.response import Http404, HttpResponseRedirect
 from django.shortcuts import render, redirect
 
 #para los mensajes de error
@@ -9,7 +9,7 @@ from django.utils.http import is_safe_url
 from django.contrib.auth import login as do_login
 from django.contrib.auth import logout as do_logout
 from django.contrib.auth import authenticate
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.models import User
 
 
@@ -109,3 +109,28 @@ def profile(request):
     u=User.objects.all() #llama una base de datos
     context={"users":u} #asigna un nombre a la base de datos
     return render(request,'user/profile.html',context)
+
+#Paginas solo para administradores:
+@permission_required('authusuario.es_usuario_admin')
+def admin_cuestionarios(request):
+    return render(request,'admin/admin_cuestionarios.html')
+
+@permission_required('authusuario.es_usuario_admin')
+def admin_usuarios(request):
+    return render(request,'admin/admin_usuarios.html')
+
+@permission_required('authusuario.es_usuario_admin')
+def admin_preguntas(request):
+    return render(request,'admin/editar_preguntas.html')
+
+@login_required(login_url="login")
+@permission_required('authusuario.es_usuario_admin')
+def mi_useradmin(request,id):
+    if id == "cst":
+        return admin_cuestionarios(request)
+    elif id == "usr":
+        return admin_usuarios(request)
+    elif id == "prg":
+        return admin_preguntas(request)
+    else:
+        raise Http404

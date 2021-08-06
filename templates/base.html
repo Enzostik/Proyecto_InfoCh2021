@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ENZO· INFORMATORIO 2021  {% block titulo %} {% endblock  %}</title>
+    <title> INFORMATORIO 2021  {% block titulo %} {% endblock  %}</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/album/">
 
@@ -13,6 +13,7 @@
 <link href={% static 'css/bootstrap.min.css' %} rel="stylesheet">
     <!-- Se llama a la configuracion "css/main.css"-->
 <link href={% static 'css/main.css' %} rel="stylesheet">
+<link href={% static 'css/sidebars.css' %} rel="stylesheet">
 
 {% include 'partials/_favicon.html' %}
 
@@ -28,6 +29,10 @@
 
 <!-- El MAIN tendrá un blocke cuyo contenido se dará por el servidor de django -->
 <main>
+  {% if perms.authusuario.es_usuario_admin %}
+    {% include 'partials/_adminsidebar.html' %}
+  {% endif %}
+
   {% block content %}
 
   {% endblock %}
@@ -39,6 +44,7 @@
 <!-- PARA LLAMAR A LOS SCRIPTS JS EN /JS -->
     <script src={% static 'js/main.js' %} ></script>
     <script src={% static 'js/bootstrap.bundle.min.js' %} ></script>
+    <script src={% static 'js/sidebars.js' %} ></script>
 
       
   </body>

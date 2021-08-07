@@ -11,7 +11,7 @@ from django.contrib.auth import logout as do_logout
 from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.models import User
-from juego_chaco.views import admin_cuestionarios
+from juego_chaco.views import admin_cuestionarios, editar_pregunta
 
 
 def mi_redirect(request,next): #funcion para verificar si la redireccion es segura, o en caso contrario ir a 'home'
@@ -140,6 +140,11 @@ def mi_useradmin(request,id):
         return admin_actividades(request)
     else:
         raise Http404
+
+@login_required(login_url="login")
+@permission_required('authusuario.es_usuario_admin',raise_exception=True)
+def editar_pregunta_admin(request,id):
+    return editar_pregunta(request,id)
 
 def ver_usuario(request,id):
     usuario_obj=User.objects.get(pk=id)

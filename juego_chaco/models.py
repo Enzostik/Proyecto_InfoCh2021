@@ -27,7 +27,7 @@ class Pregunta(models.Model):
 
 class Respuesta(models.Model):
     id_pregunta=models.ForeignKey(Pregunta, on_delete=models.CASCADE)
-    es_correcta=models.BooleanField()
+    es_correcta=models.BooleanField(default=False)
     respuesta=models.CharField(max_length=500)
 
     def __str__(self):

@@ -11,6 +11,7 @@ from django.contrib.auth import logout as do_logout
 from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.models import User
+from juego_chaco.views import admin_cuestionarios
 
 
 def mi_redirect(request,next): #funcion para verificar si la redireccion es segura, o en caso contrario ir a 'home'
@@ -111,23 +112,41 @@ def profile(request):
     return render(request,'user/profile.html',context)
 
 #Paginas solo para administradores:
-def admin_cuestionarios(request):
-    return render(request,'admin/admin_cuestionarios.html')
+'''def admin_cuestionarios(request): #se lo llama del juego_chaco app
+    return render(request,'admin/admin_cuestionarios.html')'''
 
 def admin_usuarios(request):
-    return render(request,'admin/admin_usuarios.html')
+    lista_usuarios={}
+    u=User.objects.all()
+    for i in u:
+        if i.has_perm('authusuario.es_usuario_admin'):
+            lista_usuarios[i]=True
+        else:
+            lista_usuarios[i]=False
+    context={"users":lista_usuarios}
+    return render(request,'admin/admin_usuarios.html',context)
 
-def admin_preguntas(request):
-    return render(request,'admin/editar_preguntas.html')
+def admin_actividades(request):
+    return render(request,'admin/admin_actividades.html')
 
 @login_required(login_url="login")
 @permission_required('authusuario.es_usuario_admin',raise_exception=True)
 def mi_useradmin(request,id):
-    if id == "cst":
+    if id == "prg":
         return admin_cuestionarios(request)
     elif id == "usr":
         return admin_usuarios(request)
-    elif id == "prg":
-        return admin_preguntas(request)
+    elif id == "act":
+        return admin_actividades(request)
     else:
         raise Http404
+
+def ver_usuario(request,id):
+    usuario_obj=User.objects.get(pk=id)
+    usuario_soy=request.user
+    if usuario_soy.has_perm('authusuario.es_usuario_admin') or usuario_obj.perfilusuario.visibilidad_perfil or usuario_soy==usuario_obj:
+        datos=True
+    else:
+        datos=False
+    context={"usuario":usuario_obj,"visibilidad":datos}
+    return render(request, 'user/user.html',context)

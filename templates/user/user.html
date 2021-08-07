@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="col-sm-10 col-md-9 py-4">
+        <h1>Perfil del usuario: {{usuario.username}} - {{usuario.email}}</h2>
+        {% if visibilidad %}
+        <p>Soy visible</p>
+        {% else %}
+        <p>Soy invisible (algo asi)</p>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

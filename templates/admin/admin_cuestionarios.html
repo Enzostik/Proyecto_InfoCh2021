@@ -42,7 +42,7 @@
         <th class="filter-select filter-exact" data-placeholder="Todos">Tipo</th>
         <th>Creacion</th>
         <th>Modificacion</th>
-        <th>N° respuestas</th>
+        <th class="filter-select filter-exact" data-placeholder="Todos">Autor</th>
     </thead>
     <tfoot class="text-center">
       <tr>
@@ -74,11 +74,11 @@
       {% for pregunta, respuestas in cuestionario.items %}
         <tr>
         <td>{{pregunta.pk}}</td>
-        <td><a href= {% url 'home' %}>{{pregunta}}</a></td>
+        <td><a href= {% url 'editar' 'ver' pregunta.pk %}>{{pregunta}}</a></td>
         <td>{{pregunta.clasificacion}}</td>
         <td>{{pregunta.fecha_creacion}}</td>
         <td>{{pregunta.fecha_modificacion}}</td>
-        <td>{{respuestas}}</td>
+        <td>{{pregunta.autor}}</td>
         </tr>
       {% endfor %}
     </tbody>

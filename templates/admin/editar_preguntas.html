@@ -9,8 +9,27 @@
 {% endblock  %}
 
 {% block content %}
-<title>Ver una pregunta en especifico con su lista de respuestas</title>
-<h1>Se puede editar la pregunta, añadir respuestas, editar respuestas, etc.</h2>
-<p>Al terminar lo guarda en la base de datos</p>
-
+<div class="container">
+    <h2>Editar pregunta:</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-floating">
+            <input type="text" class="form-control" name="pregunta" value="{{pregunta}}" placeholder="Pregunta aquí" required>
+            <label for="floatingInput">ID_Pregunta {{pregunta.pk}}</label>
+        </div>
+        <h4>Respuestas</h4>
+        {% for respuesta in respuestas%}
+        <div class="form-floating">
+            <input type="text" class="form-control" name="respuesta" value="{{respuesta}}" placeholder="Respuesta aquí" required>
+            <label for="floatingInput">ID_Respuesta {{respuesta.pk}}</label>
+            <div>
+            <input type="checkbox" name="respuesta_bool" value="False">
+            <label class="btn btn-outline-succes" for="respuesta_bool">Verdadero</label>
+            </div>
+        </div>
+        {% endfor %}
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Aplicar</button>
+    </form>
+    <a href={% url 'editar' 'del' pregunta.pk %} class="w-100 btn btn-lg btn-primary" type="submit">Borrar</a>
+</div>
 {% endblock  %}

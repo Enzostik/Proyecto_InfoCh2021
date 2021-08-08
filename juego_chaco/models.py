@@ -20,14 +20,14 @@ class Pregunta(models.Model):
     pregunta = models.CharField(max_length=500)
     clasificacion = models.CharField(max_length=30,choices=Clasificacion.choices,default=Clasificacion.GEOGRAFIA,)
     fecha_creacion = models.DateTimeField(auto_now_add=True, editable=False)
-    fecha_modificacion = models.DateTimeField(auto_now_add=True)
+    fecha_modificacion = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.pregunta
 
 class Respuesta(models.Model):
     id_pregunta=models.ForeignKey(Pregunta, on_delete=models.CASCADE)
-    es_correcta=models.BooleanField()
+    es_correcta=models.BooleanField(default=False)
     respuesta=models.CharField(max_length=500)
 
     def __str__(self):

@@ -143,8 +143,8 @@ def mi_useradmin(request,id):
 
 @login_required(login_url="login")
 @permission_required('authusuario.es_usuario_admin',raise_exception=True)
-def editar_pregunta_admin(request,id):
-    return editar_pregunta(request,id)
+def editar_pregunta_admin(request,operacion,id):
+    return editar_pregunta(request,operacion,id)
 
 def ver_usuario(request,id):
     usuario_obj=User.objects.get(pk=id)

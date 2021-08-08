@@ -22,8 +22,14 @@
         <div class="form-floating">
             <input type="text" class="form-control" name="respuesta" value="{{respuesta}}" placeholder="Respuesta aquí" required>
             <label for="floatingInput">ID_Respuesta {{respuesta.pk}}</label>
+            <div>
+            <input type="checkbox" name="respuesta_bool" value="False">
+            <label class="btn btn-outline-succes" for="respuesta_bool">Verdadero</label>
+            </div>
         </div>
         {% endfor %}
         <button class="w-100 btn btn-lg btn-primary" type="submit">Aplicar</button>
     </form>
+    <a href={% url 'editar' 'del' pregunta.pk %} class="w-100 btn btn-lg btn-primary" type="submit">Borrar</a>
+</div>
 {% endblock  %}

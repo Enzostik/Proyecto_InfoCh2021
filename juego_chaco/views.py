@@ -6,6 +6,8 @@ from django.contrib.auth.decorators import login_required, permission_required
 #cargar los modelos de db
 from .models import Pregunta, Respuesta, Partida
 
+from datetime import datetime
+
 @login_required(login_url="login")
 def jugar(request):
     lista_preguntas=Pregunta.objects.all()
@@ -53,26 +55,44 @@ def crear_pregunta(request, cant):
     print(pregunta.pk)        
     return pregunta.pk
 
-def editar_pregunta(request,id):
-    if id=="new":
+def borrar_pregunta(request, id):
+    pregunta=Pregunta.objects.get(pk=id)
+    pregunta.delete()
+    return HttpResponseRedirect('/useradmin/prg')
+
+def editar_pregunta(request,operacion,id):
+    if operacion=="new":
         new_id=crear_pregunta(request,5) #crear una nueva pregunta con 5 respuestas vacias
-        return HttpResponseRedirect('/editar/%d'%new_id)
-    try:
-        pregunta=Pregunta.objects.get(pk=id)
-        respuestas=Respuesta.objects.filter(id_pregunta=pregunta)
-    except:
+        return HttpResponseRedirect('/editar/ver/%d'%new_id)
+    elif operacion=="del":
+        return borrar_pregunta(request,id)
+    elif operacion=="ver":
+        try:
+            pregunta=Pregunta.objects.get(pk=id)
+            respuestas=Respuesta.objects.filter(id_pregunta=pregunta)
+        except:
+            raise Http404
+        if request.POST:
+            cont_pregunta=request.POST.get('pregunta')
+            cont_respuesta=request.POST.getlist('respuesta')
+            bool_respuesta=request.POST.getlist('respuesta_bool')
+
+            #cambiar el contenido de la pregunta
+            pregunta.pregunta=cont_pregunta
+            pregunta.fecha_modificacion=datetime.now()
+            pregunta.save()
+
+            recorrido=0
+            for i in respuestas:
+                #cambiar el contenido de la respuesta
+                i.respuesta=cont_respuesta[recorrido]
+                '''if bool_respuesta[recorrido]:
+                    i.es_correcta=True'''
+                i.save()
+                recorrido+=1
+            print(bool_respuesta)
+            return HttpResponseRedirect('/useradmin/prg')
+        context={"pregunta":pregunta,"respuestas":respuestas}
+        return render(request, 'admin/editar_preguntas.html',context)
+    else:
         raise Http404
-    if request.POST:
-        cont_pregunta=request.POST.get('pregunta')
-        cont_respuesta=request.POST.getlist('respuesta')
-        print(cont_pregunta)
-        pregunta.pregunta=cont_pregunta
-        pregunta.save()
-        recorrido=0
-        for i in respuestas:
-            i.respuesta=cont_respuesta[recorrido]
-            i.save()
-            recorrido+=1
-        return HttpResponseRedirect('/useradmin/prg')
-    context={"pregunta":pregunta,"respuestas":respuestas}
-    return render(request, 'admin/editar_preguntas.html',context)

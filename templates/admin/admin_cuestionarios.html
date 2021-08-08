@@ -74,7 +74,7 @@
       {% for pregunta, respuestas in cuestionario.items %}
         <tr>
         <td>{{pregunta.pk}}</td>
-        <td><a href= {% url 'editar' pregunta.pk %}>{{pregunta}}</a></td>
+        <td><a href= {% url 'editar' 'ver' pregunta.pk %}>{{pregunta}}</a></td>
         <td>{{pregunta.clasificacion}}</td>
         <td>{{pregunta.fecha_creacion}}</td>
         <td>{{pregunta.fecha_modificacion}}</td>

@@ -4,26 +4,33 @@
     <div class="container-fluid">
       <a href={% url 'home'%} class="navbar-brand d-flex align-items-center">
         <img class="me-2" src={% static 'img/w_logo.png' %} alt="" width="35" height="35">
-        <strong>Proyecto Informatorio 2021</strong>
+        <div class="navbar-collapse collapse">
+          <strong><b>Proyecto Informatorio 2021</b></strong>
+        </div>
       </a>
-      
       <div class="navbar-collapse collapse" id="navbarHeader">
         <ul class="navbar-nav me-auto mb-2 mb-md-0">
-        <!-- un 'if' para ver si ya tiene sesion iniciada -->
-          {% if user.is_authenticated %}
-          <li class="nav-link"><a href={% url 'profile'%} class="text-white">{{user.username}}</a><a> / </a><a href={% url 'logout'%} class="text-white">Cerrar sesion</a></li>
-          {% else %}
-          <li class="nav-link"><a href={% url 'login'%} class="text-white">Iniciar sesion</a><a> / </a><a href={% url 'register'%} class="text-white">Registrarse</a></li>
-          {% endif %}
-
           <!-- la href puede ser con "add-ejemplo" o cargarlo -->
           <li class="nav-link"><a href='#' class="text-white">Ir a 'add-ejemplo'</a></li>
           <li class="nav-link"><a href='#' class="text-white">Ir a 'homeapp'</a></li>
           <li class="nav-link"><a href="#" class="text-white">Boton de ejemplo</a></li>
         </ul>
       </div>
-      <div class="card text-center text-white border-light" style="width: 12rem;">
-      <p class="card-text mb-1" >{% if user.is_authenticated %}<a href={% url 'profile'%} class="text-white"><b>{{user}}</b></a>{% else %} Sin sesion iniciada {% endif %}</p></div>
+        <!-- un 'if' para ver si ya tiene sesion iniciada -->
+      {% if user.is_authenticated %}
+      <li class="nav-link dropdown">
+        <a href="#" class="nav-link dropdown-toggle active" id="navbarDropdownUserInfo" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#FFFFFF"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+          <b>{{user.username}}</b>
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdownUserInfo">
+          <li><a class="dropdown-item" href={% url 'profile'%} >Perfil</a></li>
+          <li><a class="dropdown-item" href={% url 'logout'%}>Cerrar sesión</a></li>
+        </ul>
+      </li>
+      {% else %}
+      <li class="nav-link"><a href={% url 'login'%} class="text-white">Iniciar sesion</a><a> / </a><a href={% url 'register'%} class="btn btn-success"><b>Registrarse</b></a></li>
+      {% endif %}
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>

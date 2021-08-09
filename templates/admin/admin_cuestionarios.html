@@ -71,7 +71,7 @@
       </tr>
     </tfoot>
     <tbody>
-      {% for pregunta, respuestas in cuestionario.items %}
+      {% for pregunta in cuestionario %}
         <tr>
         <td>{{pregunta.pk}}</td>
         <td><a href= {% url 'editar' 'ver' pregunta.pk %}>{{pregunta}}</a></td>

@@ -112,8 +112,6 @@ def profile(request):
     return render(request,'user/profile.html',context)
 
 #Paginas solo para administradores:
-'''def admin_cuestionarios(request): #se lo llama del juego_chaco app
-    return render(request,'admin/admin_cuestionarios.html')'''
 
 def admin_usuarios(request):
     lista_usuarios={}
@@ -132,14 +130,11 @@ def admin_actividades(request):
 @login_required(login_url="login")
 @permission_required('authusuario.es_usuario_admin',raise_exception=True)
 def mi_useradmin(request,id):
-    if id == "prg":
-        return admin_cuestionarios(request)
-    elif id == "usr":
-        return admin_usuarios(request)
-    elif id == "act":
-        return admin_actividades(request)
-    else:
-        raise Http404
+    sw={"prg":admin_cuestionarios,"usr":admin_usuarios,"act":admin_actividades}
+    func= sw.get(id,"ERROR")
+    if func != "ERROR":
+        return func(request)
+    raise Http404
 
 @login_required(login_url="login")
 @permission_required('authusuario.es_usuario_admin',raise_exception=True)

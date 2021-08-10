@@ -26,10 +26,10 @@ def admin_cuestionarios(request):
     context={"cuestionario":lista_preguntas}
     return render(request,'admin/admin_cuestionarios.html',context)
 
-def crear_pregunta(request, cant):
+def crear_pregunta(request,id):
     pregunta=Pregunta(autor=request.user,pregunta="Nueva pregunta")
     pregunta.save()
-    for i in range(cant):
+    for i in range(5):
         respuesta=Respuesta(id_pregunta=pregunta,es_correcta=False,respuesta="Nueva respuesta")
         respuesta.save()
     print(pregunta.pk)        
@@ -47,11 +47,13 @@ def ver_pregunta(request,id):
         raise Http404
     if request.POST:
         cont_pregunta=request.POST.get('pregunta')
+        clasif_pregunta=request.POST.get('preguntaSelect')
         cont_respuesta=request.POST.getlist('respuesta')
         bool_respuesta = [request.POST.get(f'respuestaBool_{i.pk}') == 'Verdadero' for i in respuestas]
 
         #cambiar el contenido de la pregunta
         pregunta.pregunta=cont_pregunta
+        pregunta.clasificacion=clasif_pregunta
         pregunta.fecha_modificacion=datetime.now()
         pregunta.save()
 

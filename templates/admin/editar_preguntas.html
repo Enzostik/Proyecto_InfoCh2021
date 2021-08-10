@@ -13,10 +13,26 @@
     <h2>Editar pregunta:</h2>
     <form method="POST">
         {% csrf_token %}
-        <div class="form-floating input-group mb-3">
-            <input type="text" class="form-control" name="pregunta" value="{{pregunta}}" placeholder="Pregunta aquí" required>
-            <label for="floatingInput">ID_Pregunta {{pregunta.pk}}</label>
-            <span class="input-group-text" id="basic-addon3"> ? </span>
+        <div class="d-flex">
+            <div class="form-floating input-group mb-3 p-2">
+                <input type="text" class="form-control" name="pregunta" value="{{pregunta}}" placeholder="Pregunta aquí" required>
+                <label for="floatingInput">ID_Pregunta {{pregunta.pk}}</label>
+                <span class="input-group-text" id="basic-addon3"> ? </span>
+            </div>
+            <div class="p-2">
+                <select class="form-select form-select-lg mb-3" name="preguntaSelect" aria-label="Default select example">
+                    <option value="Geografía" {% if pregunta.clasificacion == 'Geografía' %}selected{% endif %}>
+                        Geografía</option>
+                    <option value="Historia" {% if pregunta.clasificacion == 'Historia' %}selected{% endif %}>
+                        Historia</option>
+                    <option value="Politica" {% if pregunta.clasificacion == 'Politica' %}selected{% endif %}>
+                        Politica</option>
+                    <option value="Social" {% if pregunta.clasificacion == 'Social' %}selected{% endif %}>
+                        Social</option>
+                    <option value="Cultural" {% if pregunta.clasificacion == 'Cultural' %}selected{% endif %}>
+                        Cultural</option>
+                </select>
+            </div>
         </div>
         
         <h4>Respuestas</h4>

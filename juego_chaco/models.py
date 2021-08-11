@@ -37,4 +37,4 @@ class Partida(models.Model):
     id=models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     usuario=models.ForeignKey(User,on_delete=models.CASCADE)
     puntuacion=models.IntegerField()
-    fecha = models.DateTimeField(auto_now_add=True)
+    fecha = models.DateTimeField(auto_now_add=True, editable=False)

@@ -5,12 +5,80 @@
 {% block titulo %}- Admin{% endblock %}
 
 {% block load_scr %}
+<!-- Jquery 3.6.0 ¡SIEMPRE CARGAR PRIMERO! -->
+<script src={% static 'js/jquery-3.6.0.js' %}></script>
+
+<!-- Cargar el estilo de la tabla-->
+<link href={% static 'css/theme.bootstrap_4.css' %} rel="stylesheet">
+
+<!-- Cargar el codigo js de jquery - tablesorter -->
+<script src={% static 'js/jquery.tablesorter.js' %}></script>
+<script src={% static 'js/jquery.tablesorter.widgets.js' %}></script>
+
+<!-- Cargar el codigo js de jquery - tablepager -->
+<link href={% static 'css/jquery.tablesorter.pager.css' %} rel="stylesheet">
+<style>
+	.tablesorter-pager .btn-group-sm .btn {
+		font-size: 1.2em;
+	}
+</style>
+<script src={% static 'js/jquery.tablesorter.pager.js' %}></script>
+
+<!-- El src principal para el tablesorter-->
+<script src={% static 'js/mi_tablesorter.js' %}></script>
 
 {% endblock  %}
 
 {% block content %}
-<title>Vver actividades y partidas totales</title>
-<h1>Se puede editar la pregunta, añadir respuestas, editar respuestas, etc.</h2>
-<p>Al terminar lo guarda en la base de datos</p>
+<div class="container">
+  <title>Titulo</title>
+  <h1>Anotacion</h2>
+  <p>Descripcion</p>
+  <table class="table table-dark table-bordered table-hover table-responsive">
+    <thead class="thead-dark text-center"> <!-- add class="thead-light" for a light header -->
+      <tr>
+        <th class="sorter-false filter-exact">ID</th>
+        <th class="filter-exact" data-placeholder="Todos">Usuario</th>
+        <th class="filter-select filter-exact" data-placeholder="Todos">Puntaje</th>
+        <th class="filter-exact">Creacion</th>
+    </thead>
+    <tfoot class="text-center">
+      <tr>
+        <th colspan="7" class="ts-pager">
+          <div class="form-inline">
+            <div class="btn-group btn-group-sm mx-1" role="group">
+              <button type="button" class="btn btn-secondary first" title="first">|&laquo;</button>
+              <button type="button" class="btn btn-secondary prev" title="previous">&laquo;</button>
+            </div>
+            </select>
+            <select class="form-control-sm custom-select px-4 mx-1 pagenum" title="N° de página"></select>
+            <div class="btn-group btn-group-sm mx-1" role="group">
+              <button type="button" class="btn btn-secondary next" title="next">&raquo;</button>
+              <button type="button" class="btn btn-secondary last" title="last">&raquo;|</button>
+            </div>
+            <p class="float-end">
+              <a>Cant.</a>
+              <select class="form-control-sm custom-select px-1 pagesize" title="Seleccione el tamaño de página">
+                <option selected="selected" value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+                <option value="all">Todos</option>
+            </p>
+          </div>
+        </th>
+      </tr>
+    </tfoot>
+    <tbody>
+      {% for partida in partidas %}
+        <tr>
+        <td><a href= {% url 'ver-partida' partida.pk %}>{{partida.pk}}</a></td>
+        <td>{{partida.usuario}}</td>
+        <td>{{partida.puntuacion}}</td>
+        <td>{{partida.fecha}}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
 
 {% endblock  %}

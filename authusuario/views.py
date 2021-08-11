@@ -1,3 +1,4 @@
+from juego_chaco.models import Partida
 from django.http.response import Http404, HttpResponseRedirect
 from django.shortcuts import render, redirect
 
@@ -125,7 +126,10 @@ def admin_usuarios(request):
     return render(request,'admin/admin_usuarios.html',context)
 
 def admin_actividades(request):
-    return render(request,'admin/admin_actividades.html')
+    lista_partidas=Partida.objects.all()
+    print(lista_partidas)
+    context={"partidas":lista_partidas}
+    return render(request,'admin/admin_actividades.html',context)
 
 @login_required(login_url="login")
 @permission_required('authusuario.es_usuario_admin',raise_exception=True)

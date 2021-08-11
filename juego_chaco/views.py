@@ -3,10 +3,34 @@ from django.http.response import Http404, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required, permission_required
 
+
 #cargar los modelos de db
 from .models import Pregunta, Respuesta, Partida
 
 from datetime import datetime
+
+def ver_partida(request,id):
+    try:
+        partida=Partida.objects.get(pk=id)
+    except:
+        raise Http404
+    context={'partida':partida}
+    return render(request,'juego/partida.html',context)
+
+
+def generar_cuestionario():
+    #cargar las preguntas aleatorias
+    lista_preguntas=Pregunta.objects.all()
+    lista_preguntas=list(lista_preguntas)
+    random_preguntas=random.sample(lista_preguntas,5)
+    #cargar las respuestas correspondientes ordenadas aleatoriamente
+    lista_respuestas={}
+    numero_pregunta=0
+    for i in random_preguntas:
+        i_respuestas=list(Respuesta.objects.filter(id_pregunta=i.pk))
+        lista_respuestas[i]=[numero_pregunta,random.sample(i_respuestas,5)]
+        numero_pregunta+=1
+    return lista_respuestas
 
 @login_required(login_url="login")
 def jugar(request):
@@ -16,27 +40,24 @@ def jugar(request):
         formulario_usuario=request.POST.getlist("formularioUsuario")
         respuestas_partida=[request.POST.getlist(f"RadioRespuesta_{i}") for i in formulario_usuario]
         puntaje_partida=0
+
         for i in respuestas_partida:
             i_respuesta=Respuesta.objects.get(pk=i[0])
-            if i_respuesta.es_correcta:
-                puntaje_partida+=1
-        print("Respuestas usuario:",respuestas_partida,"Puntaje jugador: ",puntaje_partida)
-    #crear la "Partida" en la base de datos
-        partida_nueva=Partida(usuario=request.user,puntuacion=puntaje_partida)
+            puntaje_partida+=i_respuesta.es_correcta #si es True=1 ; False=0
 
-    #si no era un POST
-    #cargar las preguntas de la partida
-    lista_preguntas=Pregunta.objects.all()
-    lista_preguntas=list(lista_preguntas)
-    random_preguntas=random.sample(lista_preguntas,5)
-    #cargar las respuestas correspondientes
-    lista_respuestas={}
-    numero_pregunta=0
-    for i in random_preguntas:
-        i_respuestas=list(Respuesta.objects.filter(id_pregunta=i.pk))
-        lista_respuestas[i]=[numero_pregunta,random.sample(i_respuestas,5)]
-        numero_pregunta+=1
+        print("Respuestas usuario:",respuestas_partida,"Puntaje jugador: ",puntaje_partida)
+        #crear la "Partida" en la base de datos
+        partida_nueva=Partida(usuario=request.user,puntuacion=puntaje_partida)
+        partida_nueva.save()
+        print(partida_nueva.id,partida_nueva.pk)
+
+        '''PONER UN REDIRECT A LA PAGINA DE RESULTADO PARA COMPARTIRLA'''
+        return HttpResponseRedirect(f'/partida/ver/{partida_nueva.pk}')
     
+    #si no era un POST
+    lista_respuestas=generar_cuestionario()
+    
+    #envia los datos del cuestionario al jugador
     context={"juego":lista_respuestas}
     return render(request,'juego/jugar.html',context)
 

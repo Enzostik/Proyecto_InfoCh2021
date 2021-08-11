@@ -10,25 +10,33 @@ from datetime import datetime
 
 @login_required(login_url="login")
 def jugar(request):
+    #si la request es el POST de un formulario
+    #analizar la respuesta a la partida
+    if request.method == "POST":
+        formulario_usuario=request.POST.getlist("formularioUsuario")
+        respuestas_partida=[request.POST.getlist(f"RadioRespuesta_{i}") for i in formulario_usuario]
+        puntaje_partida=0
+        for i in respuestas_partida:
+            i_respuesta=Respuesta.objects.get(pk=i[0])
+            if i_respuesta.es_correcta:
+                puntaje_partida+=1
+        print("Respuestas usuario:",respuestas_partida,"Puntaje jugador: ",puntaje_partida)
+    #crear la "Partida" en la base de datos
+        partida_nueva=Partida(usuario=request.user,puntuacion=puntaje_partida)
+
+    #si no era un POST
     #cargar las preguntas de la partida
     lista_preguntas=Pregunta.objects.all()
     lista_preguntas=list(lista_preguntas)
     random_preguntas=random.sample(lista_preguntas,5)
     #cargar las respuestas correspondientes
     lista_respuestas={}
+    numero_pregunta=0
     for i in random_preguntas:
         i_respuestas=list(Respuesta.objects.filter(id_pregunta=i.pk))
-        lista_respuestas[i]=random.sample(i_respuestas,5)
-    #analizar la respuesta a la partida
-    if request.method == "POST":
-        respuestas_partida=[request.POST.get(f"RadioRespuesta_{i.pk}") for i in random_preguntas]
-        puntaje_partida=0
-        for i in respuestas_partida:
-            i_respuesta=Respuesta.objects.get(pk=i)
-            if i_respuesta.es_correcta:
-                puntaje_partida+=1
-    #crear la "Partida" en la base de datos
-        
+        lista_respuestas[i]=[numero_pregunta,random.sample(i_respuestas,5)]
+        numero_pregunta+=1
+    
     context={"juego":lista_respuestas}
     return render(request,'juego/jugar.html',context)
 

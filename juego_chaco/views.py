@@ -15,8 +15,8 @@ def jugar(request):
     random_preguntas=random.sample(lista_preguntas,5)
     lista_respuestas={}
     for i in random_preguntas:
-        lista_respuestas[i]=Respuesta.objects.filter(id_pregunta=i.pk)
-
+        i_respuestas=list(Respuesta.objects.filter(id_pregunta=i.pk))
+        lista_respuestas[i]=random.sample(i_respuestas,5)
     context={"juego":lista_respuestas}
     return render(request,'juego/jugar.html',context)
 

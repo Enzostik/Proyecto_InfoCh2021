@@ -9,21 +9,24 @@
 {% endblock  %}
 
 {% block content %}
+<script src={% static 'js/mainGame.js' %} ></script>
 <div class="container">
     <form method="POST">
         {% csrf_token %}
+        <button type="button" id="prueba">PRUEBA</button>
         <div class="mi-separador inicio">
             Presentacion aqui
         </div>
         {% for i,j in juego.items %}
-        <div class="mi-separador">
+        <div class="mi-separador pregunta">
             <li>{{i.pk}} - ¿{{i.pregunta}}? - {{i.clasificacion}} - {{i.autor}} - {{i.fecha_creacion}} - {{i.fecha_modificacion}}</li>
             {% for r in j%}
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="RadioRespuesta_{{i.pk}}" id="RespuestaInput" value="{{r.pk}}" >
-                <label class="form-check-label" for="RespuestaInput">{{r.pk}} - {{r.respuesta}} - {{r.es_correcta}}</label>
+                <label class="form-check-label" for="RespuestaInput">{{r.pk}} - {{r.respuesta}} - {{r.es_correcta}}</label>            
             </div>
             {% endfor %}
+            <button type="button" class="next">Siguiente</button>
         </div>
         {% endfor %}
         <div class="mi-separador final">
@@ -39,5 +42,5 @@
 {% endblock  %}
 
 {% block load_js %}
-<script src={% static 'js/example.js' %} ></script>
+<script src={% static 'js/mainGame.js' %} ></script>
 {% endblock  %}

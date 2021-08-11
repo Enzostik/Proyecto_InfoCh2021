@@ -41,7 +41,8 @@
         <script src={% static 'js/main.js' %} ></script>
         <script src={% static 'js/bootstrap.bundle.min.js' %} ></script>
         <script src={% static 'js/sidebars.js' %} ></script>
-
+        {% block load_js %}
+        {% endblock %}
           
   </body>
 </html>

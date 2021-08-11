@@ -1,13 +1,19 @@
-function hideCurrentContainer() {
-    const div = document.querySelector('.pregunta');
-    div.style.display = 'none';
-    console.log('wop');
+function hideSubmit() {
+    const submit = document.querySelector('.btn-success');
+    submit.style.display = 'none';
+    console.log('hide Submit');
 }
 
-function showCurrentContainer() {
-    const div = document.getElementsByClassName('mi-separador');
+function showSubmit() {
+    const submit = document.querySelector('.btn-success');
+    submit.style.display = 'block';
+    console.log('show Submit');
+}
+
+function showCurrentContainer(number) {
+    const div = document.getElementById(`${number}`);
     div.style.display = 'block';
-    console.log('wop');
+    console.log(`Display num: ${number}`);
 }
 
 function hide(elements) {
@@ -25,12 +31,28 @@ function show(elements, specifiedDisplay) {
 }
 
 function main() {
-    const button = document.querySelectorAll('.next');
+    let num = 0;
+    // Variable que controla el número de preguntas
+    let questions = 4;
+    const btns = document.querySelectorAll('.next');
 
-    button.addEventListener('click', function(event) {
-        console.log('Funciona!');
+    hide(document.querySelectorAll('.pregunta'));
+    hideSubmit();
+    showCurrentContainer(num);
+
+    btns.forEach(btn => {
+        btn.addEventListener('click', function () {
+            hide(document.querySelectorAll('.pregunta'));
+            num++;
+            if (num <= questions) {
+                showCurrentContainer(num);
+            } else {
+                showSubmit();
+                console.log('Terminado');
+            }
+        });
     })
 }
 
-document.querySelector('#prueba').addEventListener('click', hideCurrentContainer);
+main();
 

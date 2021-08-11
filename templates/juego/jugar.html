@@ -13,16 +13,15 @@
 <div class="container">
     <form method="POST" action="{% url 'jugar' %}">
         {% csrf_token %}
-        <button type="button" id="prueba">PRUEBA</button>
         <div class="mi-separador inicio">
             Presentacion aqui
         </div>
         {% for i,j in juego.items %}
         <div class="mi-separador pregunta" id="{{j.0}}">
             <li>{{i.pk}} - ¿{{i.pregunta}}? - {{i.clasificacion}} - {{i.autor}} - {{i.fecha_creacion}} - {{i.fecha_modificacion}}</li>
-            {% for r in j%}
+            {% for r in j.1%}
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="RadioRespuesta_{{j.0}}" id="RespuestaInput_{{r.pk}}" value="{{r.pk}}" >
+                <input required class="form-check-input" type="radio" name="RadioRespuesta_{{j.0}}" id="RespuestaInput_{{r.pk}}" value="{{r.pk}}" >
                 <label class="form-check-label" for="RespuestaInput_{{r.pk}}">{{r.pk}} - {{r.respuesta}} - {{r.es_correcta}}</label>
             </div>
             {% endfor %}

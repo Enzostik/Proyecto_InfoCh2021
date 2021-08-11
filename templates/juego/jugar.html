@@ -10,12 +10,31 @@
 
 {% block content %}
 <div class="container">
-{% for i,j in juego.items %}
-    <li>{{i.pk}} - ¿{{i.pregunta}}? - {{i.clasificacion}} - {{i.autor}} - {{i.fecha_creacion}} - {{i.fecha_modificacion}}</li>
-    {% for r in j%}
-        <p>{{r.pk}} - {{r.respuesta}} - {{r.es_correcta}}</p>
-    {% endfor %}
-{% endfor %}
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mi-separador inicio">
+            Presentacion aqui
+        </div>
+        {% for i,j in juego.items %}
+        <div class="mi-separador">
+            <li>{{i.pk}} - ¿{{i.pregunta}}? - {{i.clasificacion}} - {{i.autor}} - {{i.fecha_creacion}} - {{i.fecha_modificacion}}</li>
+            {% for r in j%}
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="RadioRespuesta_{{i.pk}}" id="RespuestaInput" value="{{r.pk}}" >
+                <label class="form-check-label" for="RespuestaInput">{{r.pk}} - {{r.respuesta}} - {{r.es_correcta}}</label>
+            </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+        <div class="mi-separador final">
+            <div>
+                Cierre y boton de enviar cuestionario
+            </div>
+            <div class="text-center">
+                <button class="w-25 btn btn-lg btn-success" type="submit">Finalizar cuestionario</button>
+            </div>
+        </div>
+    </form>
 </div>
 {% endblock  %}
 

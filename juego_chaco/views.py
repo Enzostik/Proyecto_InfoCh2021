@@ -10,13 +10,25 @@ from datetime import datetime
 
 @login_required(login_url="login")
 def jugar(request):
+    #cargar las preguntas de la partida
     lista_preguntas=Pregunta.objects.all()
     lista_preguntas=list(lista_preguntas)
     random_preguntas=random.sample(lista_preguntas,5)
+    #cargar las respuestas correspondientes
     lista_respuestas={}
     for i in random_preguntas:
         i_respuestas=list(Respuesta.objects.filter(id_pregunta=i.pk))
         lista_respuestas[i]=random.sample(i_respuestas,5)
+    #analizar la respuesta a la partida
+    if request.method == "POST":
+        respuestas_partida=[request.POST.get(f"RadioRespuesta_{i.pk}") for i in random_preguntas]
+        puntaje_partida=0
+        for i in respuestas_partida:
+            i_respuesta=Respuesta.objects.get(pk=i)
+            if i_respuesta.es_correcta:
+                puntaje_partida+=1
+    #crear la "Partida" en la base de datos
+        
     context={"juego":lista_respuestas}
     return render(request,'juego/jugar.html',context)
 

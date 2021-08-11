@@ -26,3 +26,4 @@ urlpatterns = [
 
 handler404=views.page_not_found #Pagina no encontrada
 handler403=views.page_not_perm #No permitido
+handler500=views.page_error_server #Error por db del servidor

@@ -23,7 +23,7 @@ def generar_cuestionario(cantidad):
     random_preguntas=Pregunta.objects.order_by('?')[:cantidad]
     #cargar las respuestas correspondientes ordenadas aleatoriamente
     lista_respuestas={}
-    numero_pregunta=0
+    numero_pregunta=1 #siempre habrá una pregunta como mínimo
     for i in random_preguntas:
         i_respuestas=Respuesta.objects.filter(id_pregunta=i.pk).order_by('?')
         lista_respuestas[i]=[numero_pregunta,i_respuestas]

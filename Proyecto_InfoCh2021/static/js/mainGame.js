@@ -26,9 +26,9 @@ function hide(elements) {
 
 
 function main() {
-    let num = 0;
+    let num = 1;
     // Variable que controla el número de preguntas
-    let questions = 4;
+    let questions = 5;
     const btnsNext = document.querySelectorAll('.next');
     const btnsPrev = document.querySelectorAll('.prev');
     const btnPrevi = document.querySelector('.previous');

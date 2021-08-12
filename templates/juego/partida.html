@@ -21,7 +21,7 @@
     <div class="col-sm-10 col-md-9 py-4">
         <h1>Partida:</h2>
         <p>{{partida.id}}</p>
-        <li class="list-group-item"><b>Usuario: {{partida.usuario}}</b></li>
+        <li class="list-group-item"><b>Usuario: <a href="{% url 'ver_user' partida.usuario.id %}">{{partida.usuario}}</a></b></li>
         <li class="list-group-item"><b>Puntaje: {{partida.puntuacion}}</b></li>
         <li class="list-group-item"><b>Fecha: {{partida.fecha}}</b></li>
     </div>

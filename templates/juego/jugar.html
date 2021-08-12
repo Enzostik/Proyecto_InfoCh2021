@@ -5,7 +5,6 @@
 {% block titulo %}- Jugar{% endblock  %}
 
 {% block load_scr %}
-<link href={% static 'css/example.css' %} rel="stylesheet">
 {% endblock  %}
 
 {% block content %}
@@ -17,8 +16,8 @@
             Presentacion aqui
         </div>
         {% for i,j in juego.items %}
-        <div class="mi-separador pregunta" id="{{j.0}}">
-            <li>{{i.pk}} - ¿{{i.pregunta}}? - {{i.clasificacion}} - {{i.autor}} - {{i.fecha_creacion}} - {{i.fecha_modificacion}}</li>
+        <div class="mi-separador card h-100 pregunta" id="{{j.0}}">
+            <h5 class="card-title"><b>{{j.0}}</b> - ID:{{i.pk}} - ¿{{i.pregunta}}? - {{i.clasificacion}} - {{i.autor}} - {{i.fecha_creacion}} - {{i.fecha_modificacion}}</h5>
             {% for r in j.1%}
             <div class="form-check">
                 <input required class="form-check-input" checked="checked" type="radio" name="RadioRespuesta_{{j.0}}" id="RespuestaInput_{{r.pk}}" value="{{r.pk}}" >
@@ -26,7 +25,9 @@
             </div>
             {% endfor %}
             <input type="hidden" name="formularioUsuario" value="{{j.0}}"/>
-            <button type="button" class="btn btn-secondary prev">Anterior</button> <button type="button" class="btn btn-primary next">Siguiente</button>
+            <div class="text-right" style="margin-top: auto;">
+                <button type="button" class="btn btn-secondary prev">Anterior</button> <button type="button" class="btn btn-primary next">Siguiente</button>
+            </div>
         </div>
         {% endfor %}
         <div class="mi-separador final">

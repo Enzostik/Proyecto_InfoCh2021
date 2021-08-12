@@ -21,6 +21,9 @@ def mi_redirect(request,next): #funcion para verificar si la redireccion es segu
         return redirect(next) #si es pagina segura regresa la redireccion
     return redirect('home') #si no es segura o no hay next --> ir a la pag principal 'home'
 
+def mi_check_user(usuario_soy,usuario_obj):
+    return (usuario_soy.has_perm('authusuario.es_usuario_admin') or usuario_obj.perfilusuario.visibilidad_perfil or usuario_soy==usuario_obj)
+
 # Create your views here.
 def login(request):
     if request.user.is_authenticated:
@@ -148,9 +151,7 @@ def editar_pregunta_admin(request,operacion,id):
 def ver_usuario(request,id):
     usuario_obj=User.objects.get(pk=id)
     usuario_soy=request.user
-    if usuario_soy.has_perm('authusuario.es_usuario_admin') or usuario_obj.perfilusuario.visibilidad_perfil or usuario_soy==usuario_obj:
-        datos=True
-    else:
-        datos=False
+    #Verifica si el se tienen parmisos admin | si la cuenta es publica | si es la cuenta del usuario
+    datos = mi_check_user(usuario_soy,usuario_obj)
     context={"usuario":usuario_obj,"visibilidad":datos}
     return render(request, 'user/user.html',context)

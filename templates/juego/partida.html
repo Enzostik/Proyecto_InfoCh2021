@@ -5,10 +5,10 @@
 {% block titulo %}- Partida{% endblock %}
 
 {% block meta %}
-<meta property="og:url"           content="https://www.your-domain.com/your-page.html" />
+<meta property="og:url"           content="https://grupo14-informatorio.herokuapp.com/" />
 <meta property="og:type"          content="website" />
 <meta property="og:title"         content="Quiz Provincializacion Chaco" />
-<meta property="og:description"   content="Proyecto del grupo 14 Comisión 3 del Informatorio 2021" />
+<meta property="og:description"   content="Vean mi puntuacion en este cuestionario sobre el Chaco. Informatorio 2021" />
 <meta property="og:image"         content="{% static 'img/logo_img.png' %}" />
 {% endblock  %}
 
@@ -25,7 +25,7 @@
         <li class="list-group-item"><b>Puntaje: {{partida.puntuacion}}</b></li>
         <li class="list-group-item"><b>Fecha: {{partida.fecha}}</b></li>
     </div>
-    {% if propietario %}
+    {% if user == partida.usuario %}
     <!--Boton de compartir *Facebook* -->
     <div class="fb-share-button" data-href="{{ request.build_absolute_uri }}" data-layout="button" data-size="large">
     {% endif %}

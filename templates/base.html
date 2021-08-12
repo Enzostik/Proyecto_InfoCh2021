@@ -4,8 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title> INFORMATORIO 2021  {% block titulo %} {% endblock  %}</title>
-    {% block meta %}
-    {% endblock  %}
+
+    <!--INFO PARA COMPARTIR PAGINA-->
+    <meta property="og:url"           content="https://grupo14-informatorio.herokuapp.com/" />
+    <meta property="og:type"          content="website" />
+    <meta property="og:title"         content="Quiz Provincializacion Chaco" />
+    <meta property="og:description"   content="Página web propuesta en la cursada del Informatorio 2021. Provincia del Chaco" />
+    <meta property="og:image"         content="{% static 'img/logo_img.png' %}" />
     
         <!-- Bootstrap core CSS - pasa a ser el archivo local en /static -->
     <link href={% static 'css/bootstrap.min.css' %} rel="stylesheet">

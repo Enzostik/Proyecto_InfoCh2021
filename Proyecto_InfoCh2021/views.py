@@ -5,6 +5,9 @@ from django.shortcuts import render
 def index(request):
     return render(request,'index.html') #ejemplo para pagina principal
 
+def about_us(request):
+    return render(request,'about_us.html') #ejemplo para pagina principal
+
 def page_not_found(request,exception):
     context={"titulo":"Página no encontrada", "encabezado": "ERROR 404",
                 "contenido": "Página no encontrada. Error 404."}

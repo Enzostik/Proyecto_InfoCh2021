@@ -12,7 +12,7 @@
                 {% if user.is_authenticated %}
                 <p class="lead text-muted">Empezá a jugar y compartí tus partidas!</p>
                 <p>
-                    <a href={% url 'jugar' %} class="btn btn-primary my-1">Jugar ahora</a>
+                    <a href={% url 'nuevo-juego' %} class="btn btn-primary my-1">Jugar ahora</a>
                 </p>
                 {% else %}
                 <p class="lead text-muted">Inicia sesión para poder jugar!</p>

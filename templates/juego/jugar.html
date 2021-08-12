@@ -8,9 +8,8 @@
 {% endblock  %}
 
 {% block content %}
-<script src={% static 'js/mainGame.js' %} ></script>
 <div class="container">
-    <form name="myForm" method="POST" action="{% url 'jugar' %}">
+    <form name="myForm" method="POST">
         {% csrf_token %}
         <div class="mi-separador inicio">
             Presentacion aqui

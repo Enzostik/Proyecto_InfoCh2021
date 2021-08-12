@@ -31,7 +31,7 @@ def generar_cuestionario(cantidad):
     return lista_respuestas
 
 @login_required(login_url="login")
-def jugar(request):
+def jugar(request,cant):
     #si la request es el POST de un formulario
     #analizar la respuesta a la partida
     if request.method == "POST":
@@ -51,11 +51,17 @@ def jugar(request):
         return HttpResponseRedirect(f'/partida/ver/{partida_nueva.pk}')
     
     #si no era un POST
-    lista_respuestas=generar_cuestionario(5) #generar un cuestionario con 5 preguntas
+    lista_respuestas=generar_cuestionario(5+cant) #generar un cuestionario con 5 preguntas
     #envia los datos del cuestionario al jugador
     context={"juego":lista_respuestas}
     return render(request,'juego/jugar.html',context)
 
+@login_required(login_url="login")
+def nuevo_juego(request):
+    if request.method=="POST":
+        dificultad=request.POST.get("DificultadCuestionario")
+        return HttpResponseRedirect(f'/partida/jugar/{dificultad}')
+    return render(request,'juego/nueva_partida.html')
 
 def admin_cuestionarios(request):
     lista_preguntas=Pregunta.objects.all()

@@ -1,4 +1,5 @@
 from juego_chaco.models import Partida
+from .models import PerfilUsuario
 from django.http.response import Http404, HttpResponseRedirect
 from django.shortcuts import render, redirect
 
@@ -104,6 +105,8 @@ def register(request):
             return render(request,'user/register.html',context) #si hay error devuelve a la pagina 'register' pero con los campos guardados
 
         user=User.objects.create_user(username=username,email=email,password=password)
+        profile=PerfilUsuario(usuario=user)
+        profile.save()
         return redirect('login')
 
     return render(request,'user/register.html')

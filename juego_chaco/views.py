@@ -18,17 +18,15 @@ def ver_partida(request,id):
     return render(request,'juego/partida.html',context)
 
 
-def generar_cuestionario():
+def generar_cuestionario(cantidad):
     #cargar las preguntas aleatorias
-    lista_preguntas=Pregunta.objects.all()
-    lista_preguntas=list(lista_preguntas)
-    random_preguntas=random.sample(lista_preguntas,5)
+    random_preguntas=Pregunta.objects.order_by('?')[:cantidad]
     #cargar las respuestas correspondientes ordenadas aleatoriamente
     lista_respuestas={}
     numero_pregunta=0
     for i in random_preguntas:
-        i_respuestas=list(Respuesta.objects.filter(id_pregunta=i.pk))
-        lista_respuestas[i]=[numero_pregunta,random.sample(i_respuestas,5)]
+        i_respuestas=Respuesta.objects.filter(id_pregunta=i.pk).order_by('?')
+        lista_respuestas[i]=[numero_pregunta,i_respuestas]
         numero_pregunta+=1
     return lista_respuestas
 
@@ -45,18 +43,15 @@ def jugar(request):
             i_respuesta=Respuesta.objects.get(pk=i[0])
             puntaje_partida+=i_respuesta.es_correcta #si es True=1 ; False=0
 
-        print("Respuestas usuario:",respuestas_partida,"Puntaje jugador: ",puntaje_partida)
         #crear la "Partida" en la base de datos
         partida_nueva=Partida(usuario=request.user,puntuacion=puntaje_partida)
         partida_nueva.save()
-        print(partida_nueva.id,partida_nueva.pk)
 
         '''PONER UN REDIRECT A LA PAGINA DE RESULTADO PARA COMPARTIRLA'''
         return HttpResponseRedirect(f'/partida/ver/{partida_nueva.pk}')
     
     #si no era un POST
-    lista_respuestas=generar_cuestionario()
-    
+    lista_respuestas=generar_cuestionario(5) #generar un cuestionario con 5 preguntas
     #envia los datos del cuestionario al jugador
     context={"juego":lista_respuestas}
     return render(request,'juego/jugar.html',context)

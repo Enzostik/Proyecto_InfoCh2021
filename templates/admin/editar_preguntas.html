@@ -44,24 +44,30 @@
         <div class="p-2">
             <div class="form-check form-check-inline form-switch">
                 <input class="form-check-input" type="checkbox" name="respuestaBool_{{respuesta.pk}}" id="bool-verdadero-{{respuesta.pk}}" value="Verdadero" {% if respuesta.es_correcta %}checked{% endif %}>
-                <label class="form-check-label" for="bool-verdadero-{{respuesta.pk}}" id="bool-label-{{respuesta.pk}}">Verdadero</label>
+                <label class="form-check-label" for="bool-verdadero-{{respuesta.pk}}" id="bool-label-{{respuesta.pk}}" style="position: absolute;">Verdadero</label>
             </div>
         </div>
         </div>
         <script>
             function initialCheck() {
+                const text = document.getElementById("bool-label-{{respuesta.pk}}");
                 if (document.getElementById("bool-verdadero-{{respuesta.pk}}").checked) {
-                    document.getElementById("bool-label-{{respuesta.pk}}").textContent = 'Verdadero';
+                    text.textContent = 'Verdadero';
+                    text.classList.remove('text-muted');
                 } else {
-                    document.getElementById("bool-label-{{respuesta.pk}}").textContent = 'Falso';
+                    text.textContent = 'Falso';
+                    text.classList.add('text-muted');
                 }
                 console.log("{{respuesta.pk}}");
             }
             function clickCheck() {
-                if (document.getElementById("bool-label-{{respuesta.pk}}").textContent === 'Verdadero') {
-                    document.getElementById("bool-label-{{respuesta.pk}}").textContent = 'Falso';
+                const text = document.getElementById("bool-label-{{respuesta.pk}}");
+                if (text.textContent === 'Verdadero') {
+                    text.textContent = 'Falso';
+                    text.classList.add('text-muted');
                 } else {
-                    document.getElementById("bool-label-{{respuesta.pk}}").textContent = 'Verdadero';
+                    text.textContent = 'Verdadero';
+                    text.classList.remove('text-muted');
                 }
                 console.log(this);
             }

@@ -31,7 +31,7 @@ def generar_cuestionario(cantidad):
     return lista_respuestas
 
 @login_required(login_url="login")
-def jugar(request,cant):
+def jugar(request,cant=0):
     #si la request es el POST de un formulario
     #analizar la respuesta a la partida
     if request.method == "POST":
@@ -49,9 +49,10 @@ def jugar(request,cant):
 
         '''PONER UN REDIRECT A LA PAGINA DE RESULTADO PARA COMPARTIRLA'''
         return HttpResponseRedirect(f'/partida/ver/{partida_nueva.pk}')
-    
+    #obtiene el nivel de la url
+    cant = request.GET.get('level', 0)
     #si no era un POST
-    lista_respuestas=generar_cuestionario(5+cant) #generar un cuestionario con 5 preguntas
+    lista_respuestas=generar_cuestionario(5+int(cant)) #generar un cuestionario con 5 preguntas
     #envia los datos del cuestionario al jugador
     context={"juego":lista_respuestas}
     return render(request,'juego/jugar.html',context)
@@ -60,7 +61,7 @@ def jugar(request,cant):
 def nuevo_juego(request):
     if request.method=="POST":
         dificultad=request.POST.get("DificultadCuestionario")
-        return HttpResponseRedirect(f'/partida/jugar/{dificultad}')
+        return HttpResponseRedirect(f'/partida/jugar/?level={dificultad}')
     return render(request,'juego/nueva_partida.html')
 
 def admin_cuestionarios(request):

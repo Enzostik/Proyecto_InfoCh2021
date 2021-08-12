@@ -14,7 +14,7 @@ def ver_partida(request,id):
         partida=Partida.objects.get(pk=id)
     except:
         raise Http404
-    context={'partida':partida}
+    context={'partida':partida,'propietario':(request.user == partida.usuario)}
     return render(request,'juego/partida.html',context)
 
 

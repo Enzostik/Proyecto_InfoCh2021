@@ -1,11 +1,11 @@
-function hideSubmit() {
-    const submit = document.querySelector('.btn-success');
+function hideButton(btn) {
+    const submit = document.querySelector(btn);
     submit.style.display = 'none';
     console.log('hide Submit');
 }
 
-function showSubmit() {
-    const submit = document.querySelector('.btn-success');
+function showButton(btn) {
+    const submit = document.querySelector(btn);
     submit.style.display = 'block';
     console.log('show Submit');
 }
@@ -23,36 +23,55 @@ function hide(elements) {
     }
 }
 
-function show(elements, specifiedDisplay) {
-    elements = elements.length ? elements : [elements];
-    for (var index = 0; index < elements.length; index++) {
-        elements[index].style.display = specifiedDisplay || 'block';
-    }
-}
+
 
 function main() {
     let num = 0;
     // Variable que controla el número de preguntas
     let questions = 4;
-    const btns = document.querySelectorAll('.next');
-
+    const btnsNext = document.querySelectorAll('.next');
+    const btnsPrev = document.querySelectorAll('.prev');
+    const btnPrevi = document.querySelector('.previous');
+    // Oculta los botones
     hide(document.querySelectorAll('.pregunta'));
-    hideSubmit();
+    hideButton('.final');
+    hideButton('.prev');
     showCurrentContainer(num);
 
-    btns.forEach(btn => {
-        btn.addEventListener('click', function () {
+    // Botón para ir a la siguiente pregunta
+    btnsNext.forEach(btnNext => {
+        btnNext.addEventListener('click', function () {
             hide(document.querySelectorAll('.pregunta'));
             num++;
+            console.log(num);
             if (num <= questions) {
                 showCurrentContainer(num);
             } else {
-                showSubmit();
-                console.log('Terminado');
-            }
+                // Final del cuestionario
+                showButton('.final');
+            };
         });
-    })
-}
+    });
+
+    // Botón para ir a la anterior pregunta durante el cuestionario
+    btnsPrev.forEach(btnPrev => {
+        btnPrev.addEventListener('click', function() {
+            hide(document.querySelectorAll('.pregunta'));
+            num--;
+            showCurrentContainer(num);
+            console.log('show previous');
+        });
+    });
+    // Botón para retroceder una vez alcanzado el final
+    btnPrevi.addEventListener('click', function() {
+        hideButton('.final');
+        hide(document.querySelectorAll('.pregunta'));
+        num--;
+        showCurrentContainer(num);
+        console.log('show previous');
+        console.log(num);
+    });
+};
 
 main();
 

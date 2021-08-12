@@ -11,7 +11,7 @@
 {% block content %}
 <script src={% static 'js/mainGame.js' %} ></script>
 <div class="container">
-    <form method="POST" action="{% url 'jugar' %}">
+    <form name="myForm" method="POST" action="{% url 'jugar' %}">
         {% csrf_token %}
         <div class="mi-separador inicio">
             Presentacion aqui
@@ -26,7 +26,7 @@
             </div>
             {% endfor %}
             <input type="hidden" name="formularioUsuario" value="{{j.0}}"/>
-            <button type="button" class="next">Siguiente</button>
+            <button type="button" class="btn btn-secondary prev">Anterior</button> <button type="button" class="btn btn-primary next">Siguiente</button>
         </div>
         {% endfor %}
         <div class="mi-separador final">
@@ -34,6 +34,7 @@
                 Cierre y boton de enviar cuestionario
             </div>
             <div class="text-center">
+                <button type="button" class="btn btn-secondary previous">Anterior</button>
                 <button class="w-25 btn btn-lg btn-success" type="submit">Finalizar cuestionario</button>
             </div>
         </div>

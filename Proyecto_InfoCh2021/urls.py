@@ -22,6 +22,7 @@ urlpatterns = [
     path('nosotros',views.about_us,name='nosotros'),
     path('partida/',include('juego_chaco.urls')),
     path('',include('authusuario.urls')),
+    path('',include('useradministrator.urls')),
     path('admin/', admin.site.urls),
 ]
 

@@ -13,7 +13,7 @@
         <form method="POST">
             {% csrf_token %}
             <label for="customRange2" class="form-label"><h4><b>Cantidad de preguntas</b></h4></label>
-            <input type="range" class="form-range" min="0" max="5" name="DificultadCuestionario" id="customRange2">
+            <input type="range" class="form-range" min="0" max="10" name="DificultadCuestionario" id="customRange2">
             {% for tipo in form %}
             <div class="fieldWrapper">
                 {{tipo}}

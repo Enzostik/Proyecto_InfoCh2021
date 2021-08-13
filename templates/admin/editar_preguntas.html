@@ -22,16 +22,18 @@
             </div>
             <div class="p-2">
                 <select class="form-select form-select-lg mb-3" name="preguntaSelect" aria-label="Default select example">
-                    <option value="Geografía" {% if pregunta.clasificacion == 'Geografía' %}selected{% endif %}>
-                        Geografía</option>
-                    <option value="Historia" {% if pregunta.clasificacion == 'Historia' %}selected{% endif %}>
+                    <option value="CULTURA" {% if pregunta.clasificacion == 'CULTURA' %}selected{% endif %}>
+                        Cultura y arte</option>
+                    <option value="HISTORIA" {% if pregunta.clasificacion == 'HISTORIA' %}selected{% endif %}>
                         Historia</option>
-                    <option value="Politica" {% if pregunta.clasificacion == 'Politica' %}selected{% endif %}>
-                        Politica</option>
-                    <option value="Social" {% if pregunta.clasificacion == 'Social' %}selected{% endif %}>
-                        Social</option>
-                    <option value="Cultural" {% if pregunta.clasificacion == 'Cultural' %}selected{% endif %}>
-                        Cultural</option>
+                    <option value="GEOGRAFIA" {% if pregunta.clasificacion == 'GEOGRAFIA' %}selected{% endif %}>
+                        Geografía</option>
+                    <option value="ECONOMIA" {% if pregunta.clasificacion == 'ECONOMIA' %}selected{% endif %}>
+                        Economía</option>
+                    <option value="CIENCIA" {% if pregunta.clasificacion == 'CIENCIA' %}selected{% endif %}>
+                        Ciencia y Educación</option>
+                    <option value="ENTRETENIMIENTO" {% if pregunta.clasificacion == 'ENTRETENIMIENTO' %}selected{% endif %}>
+                        Entretenimiento</option>
                 </select>
             </div>
         </div>
@@ -79,6 +81,6 @@
         {% endfor %}
         <button class="w-100 btn btn-lg btn-primary" type="submit">Aplicar</button>
     </form>
-    <a href={% url 'editar' 'del' pregunta.pk %} class="w-100 btn btn-lg btn-primary" type="submit">Borrar</a>
+    <a href={% url 'editar' 'del' pregunta.pk %} class="w-100 btn btn-lg btn-primary">Borrar</a>
 </div>
 {% endblock  %}

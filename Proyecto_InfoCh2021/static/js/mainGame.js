@@ -28,7 +28,9 @@ function hide(elements) {
 function main() {
     let num = 1;
     // Variable que controla el número de preguntas
-    let questions = 5;
+    const params = new URLSearchParams(location.search);
+    console.log('LEVEL: ', params.get('level'));
+    let questions = 5 + Number(params.get('level'));
     const btnsNext = document.querySelectorAll('.next');
     const btnsPrev = document.querySelectorAll('.prev');
     const btnPrevi = document.querySelector('.previous');

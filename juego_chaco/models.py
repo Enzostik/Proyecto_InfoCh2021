@@ -6,11 +6,12 @@ from django.contrib.auth.models import User
 
 
 class Clasificacion(models.TextChoices):
-    GEOGRAFIA = 'Geografía'
-    HISTORIA = 'Historia'
-    POLITICA = 'Politica'
-    SOCIAL = 'Social'
-    CULTURAL = 'Cultural'
+    CULTURA= 'CULTURA'
+    HISTORIA = 'HISTORIA'
+    GEOGRAFIA = 'GEOGRAFIA'
+    ECONOMIA = 'ECONOMIA'
+    CIENCIA = 'CIENCIA'
+    ENTRETENIMIENTO = 'ENTRETENIMIENTO'
 
 '''class Clasificacion(models.Model):
     tipo=models.CharField(max_lenght=30)'''

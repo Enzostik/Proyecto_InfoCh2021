@@ -8,12 +8,18 @@
 {% block content %}
 <div class="container">
     <div class="col-sm-10 col-md-9 py-4">
+        {% include 'partials/_msgalert.html' %}
         <h1>Partida:</h2>
         <form method="POST">
             {% csrf_token %}
             <label for="customRange2" class="form-label"><h4><b>Cantidad de preguntas</b></h4></label>
             <input type="range" class="form-range" min="0" max="5" name="DificultadCuestionario" id="customRange2">
-            
+            {% for tipo in form %}
+            <div class="fieldWrapper">
+                {{tipo}}
+                <label for="{{ tipo.id_for_label }}">{{ tipo.label_tag }}</label>
+            </div>
+            {% endfor %}
             <div class="text-center"><button class="btn btn-lg btn-success" type="submit">Comenzar cuestionario</button>
             </div>
         </form>

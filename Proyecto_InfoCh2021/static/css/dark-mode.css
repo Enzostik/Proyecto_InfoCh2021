@@ -9,6 +9,15 @@
   color: #eee;
 }
 
+[data-theme="dark"] .form-text {
+  color: #888 !important;
+}
+
+[data-theme="dark"] .form-floating {
+  color: #303030 !important;
+  
+}
+
 [data-theme="dark"] .bg-black {
   background-color: #fff !important;
 }
@@ -43,3 +52,8 @@
 [data-theme="dark"] .btn-secondary{color:#fff;background-color:#444;border-color:#444}
 
 [data-theme="dark"] .btn-secondary:hover{color:#fff;background-color:#3a3a3a;border-color:#363636}
+
+
+[data-theme="dark"] .card {
+  background-color: #303030 !important;
+}

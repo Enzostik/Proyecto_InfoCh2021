@@ -1,0 +1,45 @@
+/*!
+ * Dark Mode Switch v1.0.1 (https://github.com/coliff/dark-mode-switch)
+ * Copyright 2021 C.Oliff
+ * Licensed under MIT (https://github.com/coliff/dark-mode-switch/blob/main/LICENSE)
+ */
+
+[data-theme="dark"] {
+  background-color: rgb(54, 53, 53) !important;
+  color: #eee;
+}
+
+[data-theme="dark"] .bg-black {
+  background-color: #fff !important;
+}
+
+[data-theme="dark"] .bg-dark {
+  background-color: #303030 !important;
+}
+
+[data-theme="dark"] .bg-light {
+  background-color: #222 !important;
+}
+
+[data-theme="dark"] .bg-white {
+  background-color: #000 !important;
+}
+
+[data-theme="dark"] .border-light {
+  background-color: #adb5bd !important;
+}
+
+[data-theme="dark"] .card {
+  background-color: #303030 !important;
+}
+
+[data-theme="dark"] .table-dark {--bs-table-bg:#303030;--bs-table-striped-bg:#3a3a3a;--bs-table-striped-color:#fff;--bs-table-active-bg:#454545;--bs-table-active-color:#fff;--bs-table-hover-bg:#404040;--bs-table-hover-color:#fff;color:#fff;border-color:#454545}
+
+[data-theme="dark"] .dropdown-menu {
+  background-color:#303030 !important;
+  border:1px solid #adb5bd;
+}
+
+[data-theme="dark"] .btn-secondary{color:#fff;background-color:#444;border-color:#444}
+
+[data-theme="dark"] .btn-secondary:hover{color:#fff;background-color:#3a3a3a;border-color:#363636}

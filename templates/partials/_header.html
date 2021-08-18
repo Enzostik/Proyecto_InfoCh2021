@@ -15,6 +15,13 @@
           <li class="nav-link"><a href='#' class="text-white"></a>Record de partidas</li>
           <li class="nav-link"><a href={% url 'nosotros' %} class="text-white">Acerca de nosotros</a></li>
         </ul>
+        <div class="nav-link p-0 px-2">
+        <div class="form-check form-switch">
+              <input type="checkbox" class="form-check-input" id="darkSwitch">
+              <label class="custom-control-label" for="darkSwitch">Modo oscuro</label>
+            </div>
+            <script src={% static 'js/dark-mode-switch.min.js' %}></script>
+      </div>
       </div>
         <!-- un 'if' para ver si ya tiene sesion iniciada -->
       {% if user.is_authenticated %}

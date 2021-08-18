@@ -9,38 +9,39 @@
 
 {% block content %}
 <div class="container">
-    <h5>Quiz de la Provincialización del Chaco</h5>
+    <h5 class="display-6"><b>Quiz de la Provincialización del Chaco</b></h5>
     <form name="myForm" method="POST">
         {% csrf_token %}
-        <div class="mi-separador inicio">
-            Presentacion aqui
-        </div>
+        <div class="mi-separador inicio"></div>
         <div class="container">
             {% for i,j in juego.items %}
             <div class="row">
-                <div class="mi-separador card h-100 pregunta p-2" id="{{j.0}}">
-                    <h5 class="card-title"><b>{{j.0}}</b> - ID:{{i.pk}} - ¿{{i.pregunta}}? - {{i.clasificacion}} - {{i.autor}} - {{i.fecha_creacion}} - {{i.fecha_modificacion}}</h5>
+                <div class="mi-separador card h-100 pregunta p-0" id="{{j.0}}">
+                    <li class="list-group-item list-group-item-primary text-right">{{j.2}}</li>
+                    <h5 class="card-title p-2"><b>{{j.0}}</b> - ¿{{i.pregunta}}?</h5>
+                    <div class="card-body p-2">
                     {% for r in j.1%}
                     <div class="form-check">
                         <input required class="form-check-input" checked="checked" type="radio" name="RadioRespuesta_{{j.0}}" id="RespuestaInput_{{r.pk}}" value="{{r.pk}}" >
-                        <label class="form-check-label" for="RespuestaInput_{{r.pk}}">{{r.pk}} - {{r.respuesta}} - {{r.es_correcta}}</label>
+                        <label class="form-check-label" for="RespuestaInput_{{r.pk}}">{{r.respuesta}}</label>
                     </div>
                     {% endfor %}
+                    </div>
                     <input type="hidden" name="formularioUsuario" value="{{j.0}}"/>
-                    <div class="text-right" style="margin-top: auto;">
-                        <button type="button" class="btn btn-secondary prev">Anterior</button> <button type="button" class="btn btn-primary next">Siguiente</button>
+                    <div class="card-footer text-right p-2" style="margin-top: auto;">
+                        <button type="button" class="btn btn-dark prev">Anterior</button> <button type="button" class="btn btn-primary next">Siguiente</button>
                     </div>
                 </div>
             </div>
             {% endfor %}
             <div class="row">
-                <div class="mi-separador card h-100 final p-2">
-                    <h5 class="card-title">Final del cuestionario</h5>
-                    <div class="card-body">
-                        <p class="card-text text-center flex-d">Cierre y boton de enviar cuestionario</p>
+                <div class="mi-separador card h-100 final p-0">
+                    <h5 class="card-header p-2">Final del cuestionario</h5>
+                    <div class="card-body p-2" style='height: 100px'>
+                        <h5 class="card-text text-center flex-d">Haga click en finalizar para enviar el cuestionario</h5>
                     </div>
-                    <div class="text-right" style="margin-top: auto;">
-                        <button type="button" class="btn btn-secondary previous">Anterior</button>
+                    <div class="card-footer text-center p-2" style="margin-top: auto;">
+                        <button type="button" class="btn btn-lg btn-danger previous">Anterior</button>
                         <button class="btn btn-lg btn-success" type="submit">Finalizar</button>
                     </div>
                 </div>

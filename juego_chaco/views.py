@@ -11,6 +11,15 @@ from .models import Pregunta, Respuesta, Partida
 
 from datetime import datetime
 
+nombre_clasificaciones={
+    'CULTURA':'Cultura y arte',
+    'HISTORIA':'Historia',
+    'GEOGRAFIA':'Geografía',
+    'ECONOMIA':'Economía',
+    'CIENCIA':'Ciencia y Educación',
+    'ENTRETENIMIENTO':'Entretenimiento'
+}
+
 def ver_partida(request,id):
     try:
         partida=Partida.objects.get(pk=id)
@@ -32,7 +41,7 @@ def generar_cuestionario(cantidad,temas):
     numero_pregunta=1 #siempre habrá una pregunta como mínimo
     for i in random_preguntas:
         i_respuestas=Respuesta.objects.filter(id_pregunta=i.pk).order_by('?')
-        lista_respuestas[i]=[numero_pregunta,i_respuestas]
+        lista_respuestas[i]=[numero_pregunta,i_respuestas,nombre_clasificaciones[i.clasificacion]]
         numero_pregunta+=1
     return lista_respuestas
 

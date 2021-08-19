@@ -117,6 +117,7 @@ def profile(request):
     context={"form":form,"is_error":False} #asigna un nombre a la base de datos
     if request.method=="POST":
         form=edit_profile(request.POST)
+        print(form)
         if form.is_valid():
             form=form.clean()
             print(form)
@@ -125,7 +126,7 @@ def profile(request):
             if not form['nombre'] or not form['apellido'] or not form['provincia'] or not form['correo']:
                 messages.add_message(request, messages.ERROR, 'Complete todos los campos requeridos')
                 context['is_error']=True
-
+            
             if form['correo']:
                 try:
                     validate_email(form['correo'])
@@ -140,6 +141,7 @@ def profile(request):
             if context['is_error']:
                 return render(request,'user/profile.html',context) #si hay error devuelve a la pagina 'register' pero con los campos guardados
             #cambiar la base de datos (actualizar el usuario y su perfil)
+            print(form)
             usuario=request.user
             usuario.first_name=form["nombre"]
             usuario.last_name=form["apellido"]

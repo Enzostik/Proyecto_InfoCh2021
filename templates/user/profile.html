@@ -38,13 +38,13 @@
                     <div class="col-sm-4">
                         <select id="idprovincia" class="form-select" name="{{form.provincia.html_name}}">
                             {% if user.perfilusuario.provincia %}
-                                <option>{{user.perfilusuario.provincia}}</option>
+                                <option selected>{{user.perfilusuario.provincia}}</option>
                             {% else %}
-                                <option>Seleccionar</option>
+                                <option selected>Seleccionar</option>
                             {% endif %}
 
                             {% for data in form.provincia %}
-                                <option value="{{data}}"></option>
+                                {{data}}
                             {% endfor %}
                         </select>
 <!--                        {{form.provincia}}-->

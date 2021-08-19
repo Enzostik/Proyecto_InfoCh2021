@@ -13,55 +13,66 @@
         <!--            <li class="list-group-item"><b>{{u.username}}</b> - {{u.email}}</li>-->
         <!--        {% endfor %}-->
         <!--    </div>-->
-            <form method="POST">
+            <form method="POST" action={% url 'profile' %}>
               {% csrf_token %}
                   <div class="row mb-3">
-                    <label for="name" class="col-sm-2 col-form-label">Nombre/s:</label>
+                    <label for="name" class="col-sm-3 col-form-label">Nombre/s:</label>
                     <div class="col-sm-4">
                       <input type="text" class="form-control" name="{{form.nombre.html_name }}" id="name" value="{{user.first_name}}" required>
                     </div>
                   </div>
                   <div class="row mb-3">
-                    <label for="lastname" class="col-sm-2 col-form-label">Apellido/s:</label>
+                    <label for="lastname" class="col-sm-3 col-form-label">Apellido/s:</label>
                     <div class="col-sm-4">
                       <input type="text" class="form-control" name="{{form.apellido.html_name}}" id="lastname" value="{{user.last_name}}" required>
                     </div>
                   </div>
                 <div class="row mb-3">
-                    <label for="email" class="col-sm-2 col-form-label">Correo Electrónico:</label>
+                    <label for="email" class="col-sm-3 col-form-label">Email:</label>
                     <div class="col-sm-4">
                       <input type="email" class="form-control" name="{{form.correo.html_name}}" id="email" value="{{user.email}}" required>
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="idprovincia" class="col-sm-2 col-form-label">Provincia</label>
+                    <label for="idprovincia" class="col-sm-3 col-form-label">Provincia:</label>
                     <div class="col-sm-4">
-                        {{form.provincia}}
+                        <select id="idprovincia" class="form-select" name="{{form.provincia.html_name}}">
+                            {% if user.perfilusuario.provincia %}
+                                <option>{{user.perfilusuario.provincia}}</option>
+                            {% else %}
+                                <option>Seleccionar</option>
+                            {% endif %}
+
+                            {% for data in form.provincia %}
+                                <option value="{{data}}"></option>
+                            {% endfor %}
+                        </select>
+<!--                        {{form.provincia}}-->
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="localidad" class="col-sm-2 col-form-label">Localidad:</label>
+                    <label for="localidad" class="col-sm-3 col-form-label">Localidad:</label>
                     <div class="col-sm-4">
                         <input type="text" class="form-control" name="{{form.localidad.html_name}}" id="localidad" value="{{user.perfilusuario.localidad}}" required>
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="idvisibilidad" class="col-sm-2 col-form-label">Visibilidad:</label>
+                    <label for="idvisibilidad" class="col-sm-3 col-form-label">Visibilidad:</label>
                     <div class="col-sm-4">
-                        <div class="form-check form-check-inline form-switch">
+                        <div class="form-check form-check-inline form-switch mt-2">
                             <input type="checkbox" class="form-check-input" name="{{form.visibilidad.html_name}}" value="Visible" id='idvisibilidad' {% if user.perfilusuario.visibilidad_perfil %}checked{% endif %}>
                         </div>
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label"></label>
+                    <label class="col-sm-3 col-form-label"></label>
                     <div class="col-sm-4">
                         <button type="submit" class="btn btn-primary">Guardar</button>
                     </div>
                 </div>
             </form>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-3 ps-5">
             <div class="row mb-3">
                 <img src="{% static 'img/user.png' %}" class="img-thumbnail rounded float-end" width="200" height="200" alt="">
             </div>

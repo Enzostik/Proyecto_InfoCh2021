@@ -36,6 +36,9 @@ def generar_cuestionario(cantidad,temas):
         random_preguntas=Pregunta.objects.filter(clasificacion__in=temas).order_by('?')[:cantidad]
     else: #si no se definieron temas
         random_preguntas=Pregunta.objects.order_by('?')[:cantidad]
+    #si no hay suficientes preguntas alzar un error
+    if len(random_preguntas)<cantidad:
+        return "ERROR"
     #cargar las respuestas correspondientes ordenadas aleatoriamente
     lista_respuestas={}
     numero_pregunta=1 #siempre habrá una pregunta como mínimo
@@ -69,6 +72,9 @@ def jugar(request,cant=0,temas=0):
     temas = request.GET.get('temas', 0)
     #si no era un POST
     lista_respuestas=generar_cuestionario((5+int(cant)),temas) #generar un cuestionario con 5 preguntas
+    if lista_respuestas == "ERROR":
+        messages.add_message(request, messages.ERROR, 'No hay suficientes preguntas, pruebe otra configuración.')
+        return redirect("/partida/nuevo/") #regresa la direccion con 'next'
     #envia los datos del cuestionario al jugador
     context={"juego":lista_respuestas}
     return render(request,'juego/jugar.html',context)

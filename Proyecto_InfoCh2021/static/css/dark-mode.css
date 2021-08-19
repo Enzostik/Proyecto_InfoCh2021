@@ -13,6 +13,12 @@
   color: #888 !important;
 }
 
+[data-theme="dark"] .list-group-item {
+  background-color: #303030 !important;
+  color:#fff;
+  border:1px solid #444;
+}
+
 [data-theme="dark"] .form-floating {
   color: #303030 !important;
   

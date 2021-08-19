@@ -8,8 +8,88 @@
 {% endblock  %}
 
 {% block content %}
-<div class="container">
+<style>
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        border: 0
+    }
 
+    .main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .section {
+        width: 50%;
+        height: 100%;
+    }
+
+    iframe {
+        width: 30rem;
+        height: 15rem;
+        margin-left: 40px;
+    }
+
+    #mapa {
+        width: 90%;
+        height: auto;
+    }
+
+    @media screen and (max-width: 992px) {
+        .main {
+            display: flexbox;
+            flex-direction: column;
+        }
+
+        .section {
+            width: 100%;
+        }
+
+        iframe {
+            width: 300px;
+            height: auto;
+        }
+    }
+</style>
+
+<div class="container">
+    <div class="col-md-6">
+    <h1>Acerca de nosotros</h1>
+    <div>
+        <h3>Nuestro objetivo</h3>
+        <p>Desarrollamos esta página como proyecto para la segunda etapa del <b><a href="https://empleo.chaco.gob.ar/informatorio#/">
+            Informatorio</a></b>, cumpliendo con las características requeridas y añadiendo otras que nos parecieron interesantes 
+            y que resultaban en una página web más amigable para el usuario.</p>
+    </div>
+    </div>
+    <div class="main">
+        <section class="left section">
+            <h3>¿Qué es el Informatorio?</h3>
+            <p>Es un programa creado para que chaqueñas y chaqueños tengan más y mejores oportunidades de incorporarse a
+                la economía del conocimiento, especíﬁcamente en el sector de Software y Servicios Informáticos a través
+                de la formación en programación. Se trata de un espacio de aprendizaje práctico, con clases innovadoras
+                y creativas, que persiguen la inclusión social, digital y laboral a través del empleo en empresas de la
+                industria del software, o iniciando sus propios emprendimientos de base tecnológica.
+
+                Es un programa del Gobierno del Chaco que se implementa desde el año 2012, llevado adelante por la
+                Subsecretaría de Empleo, dependiente del Ministerio de Producción, Industria y Empleo, trabajando en
+                conjunto con las empresas del Polo IT Chaco, Globant, la UTN-FRRe y la UNCAUS.
+            </p>
+        </section>
+        <section class="right section">
+            <iframe title="youtube" src="https://www.youtube.com/embed/pPnEqtnaLmQ" frameborder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+            </iframe>
+        </section>
+    </div>
+    <div class="container">
+        <img id="mapa" src="https://empleo.chaco.gob.ar/static/media/fondoResultados1.db489c8e.png">
+    </div>
 </div>
 {% endblock  %}
 

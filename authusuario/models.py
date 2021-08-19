@@ -11,4 +11,6 @@ class Permisos(models.Model):
 class PerfilUsuario(models.Model):
     usuario=models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE)
     visibilidad_perfil=models.BooleanField(default=False) #False - Privado / True - Publico
+    provincia=models.CharField(max_length=50, default= "")
+    localidad=models.CharField(max_length=50, default="")
     descripcion=models.CharField(max_length=500, default="Di lo que estás pensando.")

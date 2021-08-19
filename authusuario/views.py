@@ -1,4 +1,5 @@
 from .models import PerfilUsuario
+from .forms import edit_profile
 from django.http.response import Http404, HttpResponseRedirect
 from django.shortcuts import render, redirect
 
@@ -112,8 +113,44 @@ def register(request):
 #para la pagina de usuario
 @login_required(login_url="login")
 def profile(request):
-    u=User.objects.all() #llama una base de datos
-    context={"users":u} #asigna un nombre a la base de datos
+    form=edit_profile()
+    context={"form":form,"is_error":False} #asigna un nombre a la base de datos
+    if request.method=="POST":
+        form=edit_profile(request.POST)
+        if form.is_valid():
+            form=form.clean()
+            print(form)
+
+            #para revisar los errores
+            if not form['nombre'] or not form['apellido'] or not form['provincia'] or not form['correo']:
+                messages.add_message(request, messages.ERROR, 'Complete todos los campos requeridos')
+                context['is_error']=True
+
+            if form['correo']:
+                try:
+                    validate_email(form['correo'])
+                except:
+                    messages.add_message(request, messages.ERROR, 'Ingrese un correo electrónico válido')
+                    context['is_error']=True
+
+            if User.objects.filter(email=form['correo']).exists() and request.user.email != form['correo']:
+                messages.add_message(request, messages.ERROR, 'El correo electrónico ya está registrado')
+                context['is_error']=True
+
+            if context['is_error']:
+                return render(request,'user/profile.html',context) #si hay error devuelve a la pagina 'register' pero con los campos guardados
+            #cambiar la base de datos (actualizar el usuario y su perfil)
+            usuario=request.user
+            usuario.first_name=form["nombre"]
+            usuario.last_name=form["apellido"]
+            usuario.email=form["correo"]
+            perfil=PerfilUsuario.objects.get(usuario=usuario)
+            perfil.provincia=form["provincia"]
+            perfil.localidad=form["localidad"]
+            perfil.visibilidad_perfil=form["visibilidad"]
+            usuario.save()
+            perfil.save()
+
     return render(request,'user/profile.html',context)
 
 def ver_usuario(request,id):

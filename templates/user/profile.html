@@ -1,57 +1,56 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block titulo %}- Editar perfil{% endblock %}
 {% block content %}
 
 <div class="container border border-primary border-2">
     <div class="row">
         <div class="col-sm-9">
+            {% include 'partials/_msgalert.html' %}
             <!--    <div class="col-sm-10 col-md-9 py-4">-->
             <h3>Perfil del usuario: {{user.username}} - {{user.email}}</h3>
         <!--        {% for u in users %}-->
         <!--            <li class="list-group-item"><b>{{u.username}}</b> - {{u.email}}</li>-->
         <!--        {% endfor %}-->
         <!--    </div>-->
-            <form method="post">
+            <form method="POST">
+              {% csrf_token %}
                   <div class="row mb-3">
                     <label for="name" class="col-sm-2 col-form-label">Nombre/s:</label>
                     <div class="col-sm-4">
-                      <input type="text" class="form-control" id="name">
+                      <input type="text" class="form-control" name="{{form.nombre.html_name }}" id="name" value="{{user.first_name}}" required>
                     </div>
                   </div>
                   <div class="row mb-3">
                     <label for="lastname" class="col-sm-2 col-form-label">Apellido/s:</label>
                     <div class="col-sm-4">
-                      <input type="text" class="form-control" id="lastname">
-                    </div>
-                  </div>
-                  <div class="row mb-3">
-                    <label for="dni" class="col-sm-2 col-form-label">Documento N°:</label>
-                    <div class="col-sm-auto">
-                      <input type="number" class="form-control" id="dni">
+                      <input type="text" class="form-control" name="{{form.apellido.html_name}}" id="lastname" value="{{user.last_name}}" required>
                     </div>
                   </div>
                 <div class="row mb-3">
                     <label for="email" class="col-sm-2 col-form-label">Correo Electrónico:</label>
                     <div class="col-sm-4">
-                      <input type="email" class="form-control" id="email">
+                      <input type="email" class="form-control" name="{{form.correo.html_name}}" id="email" value="{{user.email}}" required>
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="provincia" class="col-sm-2 col-form-label">Provincia</label>
+                    <label for="idprovincia" class="col-sm-2 col-form-label">Provincia</label>
                     <div class="col-sm-4">
-                        <select id="provincia" class="form-select">
-                          <option selected>Elegir...</option>
-                          <option>...</option>
-                        </select>
+                        {{form.provincia}}
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label for="localidad" class="col-sm-2 col-form-label">Localidad:</label>
                     <div class="col-sm-4">
-                        <select id="localidad" class="form-select">
-                          <option selected>Elegir...</option>
-                          <option>...</option>
-                        </select>
+                        <input type="text" class="form-control" name="{{form.localidad.html_name}}" id="localidad" value="{{user.perfilusuario.localidad}}" required>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="idvisibilidad" class="col-sm-2 col-form-label">Visibilidad:</label>
+                    <div class="col-sm-4">
+                        <div class="form-check form-check-inline form-switch">
+                            <input type="checkbox" class="form-check-input" name="{{form.visibilidad.html_name}}" value="Visible" id='idvisibilidad' {% if user.perfilusuario.visibilidad_perfil %}checked{% endif %}>
+                        </div>
                     </div>
                 </div>
                 <div class="row mb-3">

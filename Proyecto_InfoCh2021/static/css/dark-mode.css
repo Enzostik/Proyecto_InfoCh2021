@@ -12,6 +12,21 @@
 [data-theme="dark"] .form-text {
   color: #888 !important;
 }
+[data-theme="dark"] a {
+  color: #fff !important;
+}
+
+[data-theme="dark"] label.mi-label {
+  color: #fff !important;
+}
+
+[data-theme="dark"] a:hover {
+  color: #83a1b6 !important;
+}
+
+[data-theme="dark"] .text-muted {
+  color: #95a5a6 !important;
+}
 
 [data-theme="dark"] .list-group-item {
   background-color: #303030 !important;

@@ -141,7 +141,6 @@ def profile(request):
             if context['is_error']:
                 return render(request,'user/profile.html',context) #si hay error devuelve a la pagina 'register' pero con los campos guardados
             #cambiar la base de datos (actualizar el usuario y su perfil)
-            print(form)
             usuario=request.user
             usuario.first_name=form["nombre"]
             usuario.last_name=form["apellido"]

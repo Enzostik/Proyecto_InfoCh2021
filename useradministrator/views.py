@@ -44,6 +44,18 @@ def borrar_pregunta(request, id):
     Pregunta.objects.get(pk=id).delete()
     return HttpResponseRedirect('/useradmin/prg')
 
+def borrar_respuesta(request,id):
+    rta=Respuesta.objects.get(pk=id)
+    id_preg=rta.id_pregunta.pk
+    rta.delete()
+    return HttpResponseRedirect(f'/editar/ver/{id_preg}')
+
+def nueva_respuesta(request,id):
+    preg=Pregunta.objects.get(pk=id)
+    rta=Respuesta(id_pregunta=preg,respuesta="Nueva Respuesta")
+    rta.save()
+    return HttpResponseRedirect(f'/editar/ver/{preg.pk}')
+
 def ver_pregunta(request,id):
     try:
         pregunta=Pregunta.objects.get(pk=id)
@@ -74,7 +86,7 @@ def ver_pregunta(request,id):
     return render(request, 'admin/editar_preguntas.html',context)
 
 def editar_pregunta(request,operacion,id):
-    sw={"new":crear_pregunta,"del":borrar_pregunta,"ver":ver_pregunta}
+    sw={"new":crear_pregunta,"del":borrar_pregunta,"ver":ver_pregunta,"newr":nueva_respuesta,"delr":borrar_respuesta}
     func= sw.get(operacion,"ERROR")
     if func != "ERROR":
         return func(request,id)

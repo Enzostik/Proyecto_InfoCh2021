@@ -44,14 +44,17 @@
         <h4>Respuestas</h4>
         {% for respuesta in respuestas%}
         <div class="form-floating d-flex">
-        <input type="text" class="form-control" name="respuesta" value="{{respuesta}}" placeholder="Respuesta aquí" required>
-        <label for="floatingInput">ID_Respuesta {{respuesta.pk}}</label>
-        <div class="p-2">
-            <div class="form-check form-check-inline form-switch">
-                <input class="form-check-input" type="checkbox" name="respuestaBool_{{respuesta.pk}}" id="bool-verdadero-{{respuesta.pk}}" value="Verdadero" {% if respuesta.es_correcta %}checked{% endif %}>
-                <label class="form-check-label mi-label" for="bool-verdadero-{{respuesta.pk}}" id="bool-label-{{respuesta.pk}}" style="position: absolute;">Verdadero</label>
+            <input type="text" class="form-control" name="respuesta" value="{{respuesta}}" placeholder="Respuesta aquí" required>
+            <label for="floatingInput">ID_Respuesta {{respuesta.pk}}</label>
+            <div class="p-2">
+                <div>
+                    <a href={% url 'editar' 'delr' respuesta.pk %} class="w-35 btn btn-lg btn-danger p-0 py-0"><small>Borrar</small></a>
+                </div>
+                <div class="form-check form-check-inline form-switch">
+                    <input class="form-check-input" type="checkbox" name="respuestaBool_{{respuesta.pk}}" id="bool-verdadero-{{respuesta.pk}}" value="Verdadero" {% if respuesta.es_correcta %}checked{% endif %}>
+                    <label class="form-check-label mi-label" for="bool-verdadero-{{respuesta.pk}}" id="bool-label-{{respuesta.pk}}" style="position: absolute;">Verdadero</label>
+                </div>
             </div>
-        </div>
         </div>
         <script>
             function initialCheck() {
@@ -84,6 +87,8 @@
         {% endfor %}
         <button class="w-100 btn btn-lg btn-primary" type="submit">Aplicar</button>
     </form>
-    <a href={% url 'editar' 'del' pregunta.pk %} class="w-100 btn btn-lg btn-primary">Borrar</a>
+    <a href={% url 'editar' 'newr' pregunta.pk %} class="w-100 btn btn-lg btn-success">Agregar respuesta</a>
+    <div class="p-2"></div>
+    <a href={% url 'editar' 'del' pregunta.pk %} class="w-100 btn btn-lg btn-danger">Borrar pregunta</a>
 </div>
 {% endblock  %}

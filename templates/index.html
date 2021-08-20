@@ -10,12 +10,12 @@
             <div class="col-lg-6 col-md-8 mx-auto">
                 <h1 class="fw-light">Publicacion principal ejemplo</h1>
                 {% if user.is_authenticated %}
-                <p class="lead text-muted">Empezá a jugar y compartí tus partidas!</p>
+                <p class="lead">Empezá a jugar y compartí tus partidas!</p>
                 <p>
                     <a href={% url 'nuevo-juego' %} class="btn btn-primary my-1">Jugar ahora</a>
                 </p>
                 {% else %}
-                <p class="lead text-muted">Inicia sesión para poder jugar!</p>
+                <p class="lead">Inicia sesión para poder jugar!</p>
                 <p>
                     <a href={% url 'login' %} class="btn btn-primary my-1">Iniciar sesión</a>
                 </p>

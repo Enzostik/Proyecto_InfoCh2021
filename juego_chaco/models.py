@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 class Clasificacion(models.TextChoices):
     CULTURA= 'CULTURA'
     HISTORIA = 'HISTORIA'
+    DEPORTE = 'DEPORTE'
     GEOGRAFIA = 'GEOGRAFIA'
     ECONOMIA = 'ECONOMIA'
     CIENCIA = 'CIENCIA'

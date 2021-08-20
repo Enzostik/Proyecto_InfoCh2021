@@ -14,6 +14,7 @@ from datetime import datetime
 nombre_clasificaciones={
     'CULTURA':'Cultura y arte',
     'HISTORIA':'Historia',
+    'DEPORTE':'Deporte',
     'GEOGRAFIA':'Geografía',
     'ECONOMIA':'Economía',
     'CIENCIA':'Ciencia y Educación',

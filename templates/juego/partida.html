@@ -10,17 +10,31 @@
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v11.0" nonce="Of6b2Oi1"></script>
 
 <div class="container">
-    <div class="col-sm-10 col-md-9 py-4">
-        <h1>Partida:</h2>
-        <p>{{partida.id}}</p>
-        <li class="list-group-item"><b>Usuario: <a href="{% url 'ver_user' partida.usuario.id %}">{{partida.usuario}}</a></b></li>
-        <li class="list-group-item"><b>Puntaje: {{partida.puntuacion}}</b></li>
-        <li class="list-group-item"><b>Fecha: {{partida.fecha}}</b></li>
+    <div class="row row-cols-1 row-cols-sm-2 p-4 py-4">
+        <div class="col">
+            <h1>Partida:</h2>
+            <p>{{partida.id}}</p>
+            <li class="list-group-item"><b>Usuario: <a href="{% url 'ver_user' partida.usuario.id %}">{{partida.usuario}}</a></b></li>
+            <li class="list-group-item"><b>Puntaje: {{partida.puntuacion}}</b></li>
+            <li class="list-group-item"><b>Fecha: {{partida.fecha}}</b></li>
+        
+            {% if user == partida.usuario %}
+            <li class="list-group-item text-right"><div class="fb-share-button p-2 py-2" data-href="{{ request.build_absolute_uri }}" data-layout="button" data-size="large"></div></li>
+            {% endif %}
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-body d-flex flex-column">
+                    <img class="card-img-top" src={% static 'img/BANDERA-CHACO.jpg' %} alt="100%X200" style="max-width:37rem">
+                    <h5 class="card-title">¿Querés jugar?</h5>
+                    <p class="card-text">Intentá resolver el cuestionario de la Provincialización del Chaco.</p>
+                    <div class="text-right" style="margin-top: auto;">
+                        <a href="{% url 'nuevo-juego' %}" class="btn btn-primary">Jugar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    {% if user == partida.usuario %}
-    <!--Boton de compartir *Facebook* -->
-    <div class="fb-share-button" data-href="{{ request.build_absolute_uri }}" data-layout="button" data-size="large">
-    {% endif %}
 
 </div>
 

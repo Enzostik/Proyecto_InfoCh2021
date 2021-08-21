@@ -4,11 +4,14 @@
 {% block titulo %}- Página principal{% endblock  %}
 
 {% block content %}
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v11.0" nonce="KUqekCAc"></script>
+
 <div class="container">
     <section class="card border-light py-2 text-center">
         <div class="row py-lg-5">
             <div class="col-lg-6 col-md-8 mx-auto">
-                <h1 class="fw-light">Publicacion principal ejemplo</h1>
+                <h1 class="fw-light">Prueba el cuestionario de la Provincialización del Chaco</h1>
                 {% if user.is_authenticated %}
                 <p class="lead">Empezá a jugar y compartí tus partidas!</p>
                 <p>
@@ -27,12 +30,12 @@
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 ">
             <div class="col">
                 <div class="card h-100">
-                    <img class="card-img-top" src={% static 'img/w_logo.png' %} alt="100%X200">
+                    <img class="card-img-top" src={% static 'img/BANDERA-CHACO.jpg' %} alt="100%X200" style="max-width:35rem; max-height:15rem">
                     <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                        <h5 class="card-title">¿Querés jugar?</h5>
+                        <p class="card-text">Intentá resolver el cuestionario de la Provincialización del Chaco.</p>
                         <div class="text-right" style="margin-top: auto;">
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                            <a href="{% url 'nuevo-juego' %}" class="btn btn-primary">Jugar</a>
                         </div>
                     </div>
                     <span class="position-absolute top-0 start-50 p-2 translate-middle badge rounded-pill bg-danger">
@@ -57,13 +60,7 @@
             </div>
             <div class="col">
                 <div class="card h-100">
-                    <img class="card-img-top" src={% static 'img/w_logo.png' %} alt="100%X200">
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-                        <div class="text-right" style="margin-top: auto;">
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
+                    <div class="fb-page" data-href="https://www.facebook.com/empleochaco" data-tabs="timeline" data-width="900" data-height="425" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/empleochaco" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/empleochaco">Subsecretaría de Empleo de la Provincia del Chaco</a></blockquote></div>
                     </div>
                     <span class="position-absolute top-0 start-50 p-2 translate-middle badge rounded-pill bg-danger">
                     Nuevo

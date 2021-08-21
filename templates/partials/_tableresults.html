@@ -1,0 +1,69 @@
+{% load static %}
+<h1 class="display-6">Partidas jugadas</h1>
+<table class="table table-dark table-bordered table-striped table-hover">
+    <thead class="thead-dark text-center">
+        <tr>
+            <th>Fecha</th>
+            <th>Puntaje</th>
+            <th>Link</th>
+        <tr>
+    </thead>
+    {% if partidas.has_other_pages %}
+    <tfoot>
+        <!--Paginador: Configurar para que tenga tantas paginas necesarias-->
+        <tr>
+            <th colspan="4">
+                <div class="form-inline">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination pagination-md justify-content-center">
+                            {% if partidas.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{partidas.previous_page_number }}" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            {% else %}
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            {% endif %}
+                            {% for i in partidas.paginator.page_range %}
+                                {% if partidas.number == i %}
+                                <li class="page-item active"><a class="page-link" href="#"><b>{{i}}</b></a></li>
+                                {% else %}
+                                <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                            {% if partidas.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{partidas.next_page_number}}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                            {% else %}
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                </div>
+            </th>
+        </tr>
+    </tfoot>
+    {% endif %}
+    <tbody>
+        <!--Contenido: Partidas del usuario-->
+        {% for partida in partidas %}
+        <tr  class="text-center">
+            <td>{{partida.fecha}}</td>
+            <td><b>{{partida.puntuacion}}</b></td>
+            <td><a href="{% url 'ver-partida' partida.id %}" style="color:#fff">Ver partida</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

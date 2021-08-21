@@ -1,5 +1,6 @@
 from .models import PerfilUsuario
 from .forms import edit_profile
+from juego_chaco.views import revisar_partida, buscar_partida
 from django.http.response import Http404, HttpResponseRedirect
 from django.shortcuts import render, redirect
 
@@ -159,5 +160,9 @@ def ver_usuario(request,id):
     usuario_soy=request.user
     #Verifica si el se tienen parmisos admin | si la cuenta es publica | si es la cuenta del usuario
     datos = mi_check_user(usuario_soy,usuario_obj)
-    context={"usuario":usuario_obj,"visibilidad":datos}
+
+    #para la tabla de partidas jugadas en el parfil
+    pag = request.GET.get('page', 1)
+    partidas= revisar_partida(buscar_partida(usuario_obj,"fecha"),int(pag),10)
+    context={"usuario":usuario_obj,"visibilidad":datos,"partidas":partidas}
     return render(request, 'user/user.html',context)

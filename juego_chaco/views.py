@@ -4,11 +4,11 @@ from django.contrib import messages
 from django.http.response import Http404, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required, permission_required
-
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 #cargar los modelos de db
 from .models import Pregunta, Respuesta, Partida
-
+from math import ceil
 from datetime import datetime
 
 nombre_clasificaciones={
@@ -102,3 +102,32 @@ def nuevo_juego(request):
 
         return HttpResponseRedirect(f'/partida/jugar/?level={dificultad}&temas={temas}')
     return render(request,'juego/nueva_partida.html',context)
+
+'''def revisar_partida(user,id,cant):
+    partidas=Partida.objects.filter(usuario=user).order_by("-fecha")
+    #ordenar para pasar a las tablas
+    cant_partidas=[]
+    for i in range(ceil(len(partidas)/cant)):
+        cant_partidas.append(str(i+1))
+    partidas=partidas[cant*(id-1):cant*id] #toma de a 20 las partidas para enviar
+    tabla_partidas={}
+    n_partida=1 #empieza a contar desde la primer partida
+    for i in partidas:
+        tabla_partidas[n_partida]=i
+        n_partida+=1
+    return partidas, cant_partidas'''
+
+def buscar_partida(user_obj,ordenar_por,buscar_todos=False):
+    if buscar_todos:
+        return Partida.objects.all().order_by(f"-{ordenar_por}")
+    #devuelve las partidas que se encontraron para el usuario ordanadas por tal parámetro
+    return Partida.objects.filter(usuario=user_obj).order_by(f"-{ordenar_por}")
+
+def revisar_partida(partidas,page,cant):
+    paginator=Paginator(partidas,cant)
+    try:
+        return paginator.page(page)
+    except PageNotAnInteger:
+        return paginator.page(1)
+    except EmptyPage:
+        return paginator.page(paginator.num_pages)

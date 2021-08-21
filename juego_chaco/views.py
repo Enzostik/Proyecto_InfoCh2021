@@ -8,7 +8,6 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 #cargar los modelos de db
 from .models import Pregunta, Respuesta, Partida
-from math import ceil
 from datetime import datetime
 
 nombre_clasificaciones={

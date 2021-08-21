@@ -12,8 +12,18 @@
         <h1>Partida:</h2>
         <form method="POST">
             {% csrf_token %}
-            <label for="RangeNivel" class="form-label"><h4><b>Cantidad de preguntas</b></h4></label>
-            <input type="range" class="form-range p-4" min="0" max="10" name="DificultadCuestionario" id="RangeNivel">
+            <div class="row">
+                <label for="RangeNivel" class="form-label"><h4><b>Cantidad de preguntas</b></h4></label>
+                <div class="col-1 text-right p-0">
+                    <p>5</p>
+                </div>
+                <div class="col">
+                    <input type="range" class="form-range p-0" min="0" max="10" name="DificultadCuestionario" id="RangeNivel">
+                </div>
+                <div class="col-1 text-left p-0">
+                    <p>15</p>
+                </div>
+            </div>
             {% for tipo in form %}
             <div class="fieldWrapper">
                 {{tipo}}

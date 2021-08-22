@@ -164,5 +164,5 @@ def ver_usuario(request,id):
     #para la tabla de partidas jugadas en el parfil
     pag = request.GET.get('page', 1)
     partidas= revisar_partida(buscar_partida(usuario_obj,"fecha"),int(pag),10)
-    context={"usuario":usuario_obj,"visibilidad":datos,"partidas":partidas}
+    context={"usuario":usuario_obj,"visibilidad":datos,"partidas":partidas,"ranking":False}
     return render(request, 'user/user.html',context)

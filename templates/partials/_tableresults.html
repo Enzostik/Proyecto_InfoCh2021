@@ -3,6 +3,9 @@
 <table class="table table-dark table-bordered table-striped table-hover">
     <thead class="thead-dark text-center">
         <tr>
+            {% if ranking %}
+            <th>Usuario</th>
+            {% endif %}
             <th>Fecha</th>
             <th>Puntaje</th>
             <th>Link</th>
@@ -60,6 +63,9 @@
         <!--Contenido: Partidas del usuario-->
         {% for partida in partidas %}
         <tr  class="text-center">
+            {% if ranking %}
+            <th>{{partida.usuario}}</th>
+            {% endif %}
             <td>{{partida.fecha}}</td>
             <td><b>{{partida.puntuacion}}</b></td>
             <td><a href="{% url 'ver-partida' partida.id %}" style="color:#fff">Ver partida</a></td>

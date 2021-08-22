@@ -8,7 +8,10 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 #cargar los modelos de db
 from .models import Pregunta, Respuesta, Partida
+from django.db.models import Q #para busqueda de lista de palabras
+from functools import reduce #para busqueda de lista de palabras
 from datetime import datetime
+
 
 nombre_clasificaciones={
     'CULTURA':'Cultura y arte',
@@ -130,3 +133,25 @@ def revisar_partida(partidas,page,cant):
         return paginator.page(1)
     except EmptyPage:
         return paginator.page(paginator.num_pages)
+
+def buscador(request):
+    #armar la url: /?page=&search=&ord=&met=&num=
+    #configuracion y variables de búsqueda
+    page=request.GET.get('page', 1) #numero de la página de resultados
+    buscar = request.GET.get('search', None)
+    orden = request.GET.get('ord', 0) #por defecto busca descendente
+    metodo = request.GET.get('met', "fecha") #por defecto busca por fecha
+    cantidad = request.GET.get('num', 20) #Cantidad por página, 20 por defecto
+
+    orden=["-",""][int(orden)]
+
+    if buscar:#si se define palabras clave las filtra
+        buscar=buscar.split("+¡")[0:-1]
+        partidas=Partida.objects.filter(reduce(lambda x, y: x | y, [Q(usuario__contains=x) for x in buscar])).order_by(orden+metodo)
+    else: #en caso contrario busca todas las partidas en la db
+        partidas=Partida.objects.all().order_by(orden+metodo)
+    print(orden+metodo)
+    resultados_paginados=revisar_partida(partidas,int(page),int(cantidad))
+
+    context={"partidas":resultados_paginados, "ranking":True}
+    return render(request, 'juego/buscador_partidas.html',context)

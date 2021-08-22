@@ -3,17 +3,13 @@
 {% block titulo %}- Editar perfil{% endblock %}
 {% block content %}
 
-<div class="container border border-primary border-2">
-    <div class="row">
+<div class="container border border-white border-2 color-profile-2">
+    <div class="row" >
         <div class="col-sm-9">
             {% include 'partials/_msgalert.html' %}
-            <!--    <div class="col-sm-10 col-md-9 py-4">-->
             <h3>Perfil del usuario: {{user.username}} - {{user.email}}</h3>
-        <!--        {% for u in users %}-->
-        <!--            <li class="list-group-item"><b>{{u.username}}</b> - {{u.email}}</li>-->
-        <!--        {% endfor %}-->
-        <!--    </div>-->
-            <form method="POST" action={% url 'profile' %}>
+            <hr>
+            <form method="POST" action="{% url 'profile' %}">
               {% csrf_token %}
                   <div class="row mb-3">
                     <label for="name" class="col-sm-3 col-form-label">Nombre/s:</label>
@@ -72,13 +68,48 @@
                 </div>
             </form>
         </div>
-        <div class="col-sm-3 ps-5">
+        <div class="col-sm-3 p-5">
             <div class="row mb-3">
                 <img src="{% static 'img/user.png' %}" class="img-thumbnail rounded float-end" width="200" height="200" alt="">
+                <button type="button" class="btn btn-primary mt-3 " data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Elegir Imagen
+                </button>
             </div>
         </div>
     </div>
 </div>
 
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Seleccione Imagen de Usuario</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-sm">
+                <button class="btn btn-outline-light" id="imagen1" class="img-thumbnail rounded float-end p-3">
+                    <img src="{% static 'img/user.png' %}" width="80" height="80"></button>
+                <button class="btn btn-outline-light" id="imagen2" class="img-thumbnail rounded float-end m-3">
+                    <img src="{% static 'img/moto.png' %}" width="80" height="80"></button>
+                <button class="btn btn-outline-light" id="imagen3" class="img-thumbnail rounded float-end m-3">
+                    <img src="{% static 'img/user.png' %}" width="80" height="80"></button>
+                <button class="btn btn-outline-light" id="imagen4" class="img-thumbnail rounded float-end m-3">
+                    <img src="{% static 'img/user.png' %}" width="80" height="80"></button>
+              </div>
+            </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock %}

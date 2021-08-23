@@ -8,16 +8,17 @@
         <div class="row">
             <h1>Buscar:</h2>
                 <div class="container">
-                    <input onchange="updateUrl()" id="user" type="text" value="Nombre del usuario"
+                    <input id="user" type="text" value="Nombre del usuario"
                         onfocus="if(this.value=='Nombre del usuario')this.value=''"
                         onblur="if(this.value=='')this.value='Nombre del usuario'" />
                     <label for="order">Orden</label>
-                    <select onchange="updateUrl()" name="order" id="order">
+                    <select name="order" id="order">
                         <option value="0">Ascendente</option>
                         <option value="1">Descendente</option>
                     </select>
                     <label for="date">Fecha</label>
-                    <input onchange="updateUrl()" type="date" id="date" name="date">
+                    <input type="date" id="date" name="date">
+                    <button onclick="updateUrl()" type="button">Buscar</button>
                 </div>
         </div>
         <div class="row">

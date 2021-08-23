@@ -16,6 +16,10 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.models import User
 
+#lista para carácteres inválidos para los nombres de usuarios
+invalid_chr=[
+    "+","-","@","#","$","&","/","%","!","¡","?","¿","}","{","(",")","=","°","|","¬","<",">","[","*","]"
+]
 
 def mi_redirect(request,next): #funcion para verificar si la redireccion es segura, o en caso contrario ir a 'home'
     if next and is_safe_url(url=next, allowed_hosts={request.get_host()},
@@ -77,6 +81,10 @@ def register(request):
 
         if len(username)<8:
             messages.add_message(request, messages.ERROR, 'El nombre de usuario debe tener más de 8 carácteres')
+            context['is_error']=True
+        print([i in username for i in invalid_chr])
+        if (True in [i in username for i in invalid_chr]):
+            messages.add_message(request, messages.ERROR, f'Carácteres no permitidos para tu nombre de usuario {invalid_chr}')
             context['is_error']=True
 
         if User.objects.filter(username=username).exists():

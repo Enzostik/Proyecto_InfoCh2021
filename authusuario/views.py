@@ -154,6 +154,7 @@ def profile(request):
             perfil.visibilidad_perfil=form["visibilidad"]    
             usuario.save()              
             perfil.save()
+            return HttpResponseRedirect(f'/user/{usuario.pk}')
 
     return render(request,'user/profile.html',context)
 

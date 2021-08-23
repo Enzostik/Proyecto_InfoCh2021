@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block titulo %}- Editar perfil{% endblock %}
+
+{% block load_scr %}
+<link href="{% static 'css/profile.css' %}" rel="stylesheet">
+{% endblock  %}
+
 {% block content %}
 
 <div class="container border border-white border-2 color-profile-2">
@@ -66,15 +71,16 @@
                         <button type="submit" class="btn btn-primary">Guardar</button>
                     </div>
                 </div>
+                <!--input para la URL de la imágen-->
+                <input type="text" id="image" name="{{form.image.html_name}}" value="{{user.perfilusuario.image}}"/>
             </form>
         </div>
         <div class="col-sm-3 p-5">
             <div class="row mb-3">
-                <img src="" name="imagen" id="imagen" class="img-thumbnail rounded float-end" width="200" height="200" alt="">
+                <img src="{% static user.perfilusuario.image %}" name="imagen" id="imagen" class="img-thumbnail rounded float-end" width="200" height="200" alt="">
                 <button type="button" id="btnClickMe2" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Elegir Imagen
                 </button>
-                <input type="text" id="image" name="{{form.image.html_name}}" value="{% static user.perfilusuario.image %}"/>
             </div>
         </div>
     </div>
@@ -115,4 +121,7 @@
 
 {% endblock %}
 
-
+{% block load_js %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="{% static 'js/profile.js' %}"></script>
+{% endblock %}

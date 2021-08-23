@@ -150,7 +150,7 @@ def profile(request):
             perfil=PerfilUsuario.objects.get(usuario=usuario)
             perfil.provincia=form["provincia"]
             perfil.localidad=form["localidad"]
-            perfil.image=form['image']
+            perfil.image=form['image'][7:] #para no guardar "/static/" dentro de la URL se toma desde la pos 5 de la cadena
             perfil.visibilidad_perfil=form["visibilidad"]    
             usuario.save()              
             perfil.save()

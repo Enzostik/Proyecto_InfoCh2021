@@ -13,5 +13,5 @@ class PerfilUsuario(models.Model):
     visibilidad_perfil=models.BooleanField(default=False) #False - Privado / True - Publico
     provincia=models.CharField(max_length=50, default= "")
     localidad=models.CharField(max_length=50, default="")
-    image=models.CharField(max_length=50, default="img/pic/profile1")
+    image=models.CharField(max_length=30, default="img/pic/profile1.png")
     descripcion=models.CharField(max_length=500, default="Di lo que estás pensando.")

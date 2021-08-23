@@ -1,19 +1,51 @@
 {% extends 'base.html' %}
-{% block titulo %}- Editar perfil{% endblock %}
+{% load static %}
+
+{% block load_scr %}
+<link href="{% static 'css/profile.css' %}" rel="stylesheet">
+{% endblock  %}
+
 {% block content %}
 
-<div class="container">
+<div class="container border border-white border-2 color-profile-2">
     <div class="row row-cols-1 row-cols-md-2 g-3 py-4">
         <div class="col">
-            <h1>Perfil del usuario: {{usuario.username}} - {{usuario.email}}</h2>
+        <h1 class="display-6">Perfil del usuario: {{usuario.username}}</h1>
             {% if visibilidad %}
-            <p>Soy visible</p>
-            {% else %}
-            <p>Soy invisible (algo asi)</p>
+            <div class="col">
+        <!--        <p>Soy visible</p>-->
+                    <hr>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <h5>
+                                <p><u>Nombre/s:</u>   {{usuario.first_name}}</p>
+                                <p><u>Apellido/s:</u>   {{usuario.last_name}}</p>
+                                <p><u>Email:</u>   {{usuario.email}} </p>
+                                <p><u>Provincia:</u>   {{usuario.perfilusuario.provincia}} </p>
+                                <p><u>Localidad:</u>   {{usuario.perfilusuario.localidad}} </p>
+                            </h5>
+                        </div>
+                        <div class="col-sm-3 col-md-6">
+                                <img src="{% static user.perfilusuario.image %}" class="img-thumbnail rounded float-end" width="200" height="200" alt="">
+                        </div>
+            </div>
+            {% if user == usuario %}
+                <p>
+                <button class="btn btn-success btn-lg"><a href="{% url 'profile' %}">Editar Perfil</a></button>
+                Tu perfil es {% if user.perfilusuario.visibilidad_perfil %}público{% else %}privado{% endif %}</p>
             {% endif %}
+            
+        {% else %}
+                <hr>
+                <p> El perfil de este usuario es privado</p>
+        {% endif %}
+        </div>
         </div>
         <div class="col">
+            <h1 class="display-6">Partidas jugadas</h1>
+            <hr>
             <div>{% include 'partials/_tableresults.html' %}</div>
+        </div>
         </div>
     </div>
 </div>

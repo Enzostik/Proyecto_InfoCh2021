@@ -1,19 +1,20 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block titulo %}- Editar perfil{% endblock %}
+
+{% block load_scr %}
+<link href="{% static 'css/profile.css' %}" rel="stylesheet">
+{% endblock  %}
+
 {% block content %}
 
-<div class="container border border-primary border-2">
-    <div class="row">
+<div class="container border border-white border-2 color-profile-2">
+    <div class="row" >
         <div class="col-sm-9">
             {% include 'partials/_msgalert.html' %}
-            <!--    <div class="col-sm-10 col-md-9 py-4">-->
             <h3>Perfil del usuario: {{user.username}} - {{user.email}}</h3>
-        <!--        {% for u in users %}-->
-        <!--            <li class="list-group-item"><b>{{u.username}}</b> - {{u.email}}</li>-->
-        <!--        {% endfor %}-->
-        <!--    </div>-->
-            <form method="POST" action={% url 'profile' %}>
+            <hr>
+            <form method="POST" action="{% url 'profile' %}">
               {% csrf_token %}
                   <div class="row mb-3">
                     <label for="name" class="col-sm-3 col-form-label">Nombre/s:</label>
@@ -70,15 +71,57 @@
                         <button type="submit" class="btn btn-primary">Guardar</button>
                     </div>
                 </div>
+                <!--input para la URL de la imágen-->
+                <input type="hidden" id="image" name="{{form.image.html_name}}" value="{{user.perfilusuario.image}}"/>
             </form>
         </div>
-        <div class="col-sm-3 ps-5">
+        <div class="col-sm-3 p-5">
             <div class="row mb-3">
-                <img src="{% static 'img/user.png' %}" class="img-thumbnail rounded float-end" width="200" height="200" alt="">
+                <img src="{% static user.perfilusuario.image %}" name="imagen" id="imagen" class="img-thumbnail rounded float-end" width="200" height="200" alt="">
+                <button type="button" id="btnClickMe2" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Elegir Imagen
+                </button>
             </div>
         </div>
     </div>
 </div>
 
+<!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Seleccione Imagen de Usuario</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body p-2">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-sm">
+                    <button class="btn btn-outline-light img-thumbnail rounded float-end m-1" id="imagen1">
+                        <img src="{% static 'img/user.png' %}" width="80" height="80" class="mi-imagen" data-id="1"></button>
+                    <button class="btn btn-outline-light img-thumbnail rounded float-end m-1" id="imagen2">
+                        <img src="{% static 'img/moto.png' %}" width="80" height="80" class="mi-imagen" data-id="2"></button>
+                    <button class="btn btn-outline-light img-thumbnail rounded float-end m-1" id="imagen3">
+                        <img src="{% static 'img/auto.png' %}" width="80" height="80" class="mi-imagen" data-id="3"></button>
+                    <button class="btn btn-outline-light img-thumbnail rounded float-end m-1" id="imagen4">
+                        <img src="{% static 'img/pic/profile1.png' %}" width="80" height="80" class="mi-imagen" data-id="4"></button>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="btnClickMe" >Guardar</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
+
+{% endblock %}
+
+{% block load_js %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="{% static 'js/profile.js' %}"></script>
 {% endblock %}

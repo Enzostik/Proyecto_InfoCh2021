@@ -1,3 +1,4 @@
+from django.forms.forms import Form
 from .models import PerfilUsuario
 from .forms import edit_profile
 from juego_chaco.views import revisar_partida, buscar_partida
@@ -145,12 +146,13 @@ def profile(request):
             usuario=request.user
             usuario.first_name=form["nombre"]
             usuario.last_name=form["apellido"]
-            usuario.email=form["correo"]
+            usuario.email=form["correo"]            
             perfil=PerfilUsuario.objects.get(usuario=usuario)
             perfil.provincia=form["provincia"]
             perfil.localidad=form["localidad"]
-            perfil.visibilidad_perfil=form["visibilidad"]
-            usuario.save()
+            perfil.image=form['image'][7:] #para no guardar "/static/" dentro de la URL se toma desde la pos 5 de la cadena
+            perfil.visibilidad_perfil=form["visibilidad"]    
+            usuario.save()              
             perfil.save()
 
     return render(request,'user/profile.html',context)

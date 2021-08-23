@@ -27,9 +27,10 @@ PROVINCIAS=(('Buenos Aires','Buenos Aires'),
             ('Tucumán','Tucumán'),)
 
 class edit_profile(forms.Form):
-    nombre=forms.CharField(max_length=50,required=True)
-    apellido=forms.CharField(max_length=50,required=True)
-    correo=forms.CharField(max_length=100,required=True)
+    nombre=forms.CharField(max_length=50, required=True)
+    apellido=forms.CharField(max_length=50, required=True)
+    correo=forms.CharField(max_length=100, required=True)
     provincia = forms.ChoiceField(choices=PROVINCIAS, required=True)
     localidad= forms.CharField(max_length=50, required=False)
+    image=forms.CharField(max_length=30, required=False)
     visibilidad= forms.BooleanField(label='Visibilidad', required=False)

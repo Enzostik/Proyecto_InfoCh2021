@@ -70,46 +70,49 @@
         </div>
         <div class="col-sm-3 p-5">
             <div class="row mb-3">
-                <img src="{% static 'img/user.png' %}" class="img-thumbnail rounded float-end" width="200" height="200" alt="">
-                <button type="button" class="btn btn-primary mt-3 " data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <img src="" name="imagen" id="imagen" class="img-thumbnail rounded float-end" width="200" height="200" alt="">
+                <button type="button" id="btnClickMe2" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Elegir Imagen
                 </button>
+                <input type="text" id="image" name="{{form.image.html_name}}" value="{% static user.perfilusuario.image %}"/>
             </div>
         </div>
     </div>
 </div>
 
-
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Seleccione Imagen de Usuario</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-          <div class="container-fluid">
-            <div class="row">
-              <div class="col-sm">
-                <button class="btn btn-outline-light" id="imagen1" class="img-thumbnail rounded float-end p-3">
-                    <img src="{% static 'img/user.png' %}" width="80" height="80"></button>
-                <button class="btn btn-outline-light" id="imagen2" class="img-thumbnail rounded float-end m-3">
-                    <img src="{% static 'img/moto.png' %}" width="80" height="80"></button>
-                <button class="btn btn-outline-light" id="imagen3" class="img-thumbnail rounded float-end m-3">
-                    <img src="{% static 'img/user.png' %}" width="80" height="80"></button>
-                <button class="btn btn-outline-light" id="imagen4" class="img-thumbnail rounded float-end m-3">
-                    <img src="{% static 'img/user.png' %}" width="80" height="80"></button>
-              </div>
-            </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Seleccione Imagen de Usuario</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary">Guardar</button>
+          <div class="modal-body p-2">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-sm">
+                    <button class="btn btn-outline-light img-thumbnail rounded float-end m-1" id="imagen1">
+                        <img src="{% static 'img/user.png' %}" width="80" height="80" class="mi-imagen" data-id="1"></button>
+                    <button class="btn btn-outline-light img-thumbnail rounded float-end m-1" id="imagen2">
+                        <img src="{% static 'img/moto.png' %}" width="80" height="80" class="mi-imagen" data-id="2"></button>
+                    <button class="btn btn-outline-light img-thumbnail rounded float-end m-1" id="imagen3">
+                        <img src="{% static 'img/auto.png' %}" width="80" height="80" class="mi-imagen" data-id="3"></button>
+                    <button class="btn btn-outline-light img-thumbnail rounded float-end m-1" id="imagen4">
+                        <img src="{% static 'img/pic/profile1.png' %}" width="80" height="80" class="mi-imagen" data-id="4"></button>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="btnClickMe" >Guardar</button>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
+
 
 {% endblock %}
+
+

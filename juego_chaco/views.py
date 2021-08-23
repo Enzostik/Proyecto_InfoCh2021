@@ -7,10 +7,11 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 #cargar los modelos de db
+from django.contrib.auth.models import User
 from .models import Pregunta, Respuesta, Partida
-from django.db.models import Q #para busqueda de lista de palabras
 from functools import reduce #para busqueda de lista de palabras
-from datetime import datetime
+from django.db.models import Q #para busqueda de lista de palabras
+from datetime import datetime, date
 
 
 nombre_clasificaciones={
@@ -135,22 +136,40 @@ def revisar_partida(partidas,page,cant):
         return paginator.page(paginator.num_pages)
 
 def buscador(request):
+    not_found=False
     #armar la url: /?page=&search=&ord=&met=&num=
     #configuracion y variables de búsqueda
     page=request.GET.get('page', 1) #numero de la página de resultados
     buscar = request.GET.get('search', None)
     orden = request.GET.get('ord', 0) #por defecto busca descendente
-    metodo = request.GET.get('met', "fecha") #por defecto busca por fecha
+    fecha = request.GET.get('met', None)
+    atributo = request.GET.get('atr', "fecha") #por defecto busca por fecha
     cantidad = request.GET.get('num', 20) #Cantidad por página, 20 por defecto
 
-    orden=["-",""][int(orden)]
-
+    #corrige el contenido de los parámetros
+    orden=["-",""][int(orden)] #convierte el 0 o 1 en los signos para buscar en la db
+    atributo=("fecha" if atributo=="" else atributo) #si se deja en blanco entonces no carga ningun valor
     if buscar:#si se define palabras clave las filtra
-        buscar=buscar.split("+¡")[0:-1]
-        partidas=Partida.objects.filter(reduce(lambda x, y: x | y, [Q(usuario__contains=x) for x in buscar])).order_by(orden+metodo)
+        buscar=buscar.split(" ")
+        usuarios=User.objects.filter(reduce(lambda x, y: x | y, [Q(username__contains=x) for x in buscar])) #primero busca coincidencias en usuarios existentes
+        if usuarios.exists():
+            partidas=Partida.objects.filter(reduce(lambda x, y: x | y, [Q(usuario=x) for x in usuarios])).order_by(orden+atributo) #luego busca las partidas realizadas por dichos usuarios
+        else:
+            not_found=True
     else: #en caso contrario busca todas las partidas en la db
-        partidas=Partida.objects.all().order_by(orden+metodo)
-    print(orden+metodo)
+        partidas=Partida.objects.all().order_by(orden+atributo)
+    if fecha:
+        #arma la fecha en el formato correcto de la db
+        fecha=fecha.split("-")
+        fecha=[int(i) for i in fecha]
+        print(fecha)
+        fecha=date(fecha[0],fecha[1],fecha[2])
+        #lo filtra
+        partidas=partidas.filter(fecha__contains=fecha)
+
+    if not_found or not partidas.exists():
+        messages.add_message(request, messages.ERROR, 'No se han encontrado resultados.')
+        return redirect("/partida/buscar/")
     resultados_paginados=revisar_partida(partidas,int(page),int(cantidad))
 
     context={"partidas":resultados_paginados, "ranking":True}

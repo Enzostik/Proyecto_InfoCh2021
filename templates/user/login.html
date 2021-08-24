@@ -10,7 +10,7 @@
 
 {% block content %}
 <div class="text-center">
-<main class="form-signin">
+<main class="form-signin card" style="opacity: 0.97;">
 
 <!--Si hay mensajes o errores-->
 {% include 'partials/_msgalert.html' %}
@@ -27,17 +27,16 @@
       <input type="password" class="form-control" name="password" id="floatingPassword" placeholder="Password" required>
       <label for="floatingPassword">Contraseña</label>
     </div>
-
-    <div class="checkbox mb-3">
+    <input type="hidden" name="next" value="{{ request.GET.next }}"/>
+    <button class="w-100 btn btn-lg btn-primary" type="submit">Acceder</button>    
+    <div class="checkbox mb-3 py-2">
       <label>
         <input type="checkbox" name="remember-me" value=True> Recuérdame
       </label>
     </div>
-    <input type="hidden" name="next" value="{{ request.GET.next }}"/>
-    <button class="w-100 btn btn-lg btn-primary" type="submit">Acceder</button>
-    
   </form>
-  <p>¿No tienes una cuenta? <a href={% url 'register' %}> Registrarse! </a></p>
+  <hr>
+  <p>¿No tienes una cuenta? <a class="text-dark" href={% url 'register' %}> Registrarse! </a></p>
   </div>
 </main>
 {% endblock content %}

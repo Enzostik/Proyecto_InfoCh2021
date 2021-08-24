@@ -10,7 +10,7 @@
 
 {% block content %}
 <div class="text-center">
-<main class="form-signin">
+<main class="form-signin card" style="opacity: 0.97;">
 
 <!--Si hay mensajes o errores-->
 {% include 'partials/_msgalert.html' %}
@@ -37,7 +37,8 @@
       <label for="floatingPasswordcheck">Repita la contraseña</label>
     </div>
     <button class="w-100 btn btn-lg btn-primary" type="submit">Crear</button>
-    <p>¿Tienes una cuenta? <a href={% url 'login' %} > Iniciar Sesión!</a></p>
+    <hr>
+    <p>¿Tienes una cuenta? <a class="text-dark" href={% url 'login' %} > Iniciar Sesión!</a></p>
   </form>
   </div>
 </main>

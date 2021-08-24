@@ -14,11 +14,12 @@
             {% csrf_token %}
             <div class="row">
                 <label for="RangeNivel" class="form-label"><h4><b>Cantidad de preguntas</b></h4></label>
+                <h3 id="preguntas">10</h3>
                 <div class="col-1 text-right p-0">
                     <p>5</p>
                 </div>
                 <div class="col">
-                    <input type="range" class="form-range p-0" min="0" max="10" name="DificultadCuestionario" id="RangeNivel">
+                    <input onchange="changeValue()" type="range" class="form-range p-0" min="0" max="10" name="DificultadCuestionario" id="RangeNivel">
                 </div>
                 <div class="col-1 text-left p-0">
                     <p>15</p>
@@ -36,5 +37,7 @@
     </div>
 
 </div>
+
+<script src={% static 'js/nuevaPartida.js' %} ></script>
 
 {% endblock %}

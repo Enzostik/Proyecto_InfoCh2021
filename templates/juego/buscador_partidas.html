@@ -1,16 +1,41 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block titulo %}- Buscar{% endblock %}
 {% block content %}
 
 <div class="container">
     <div class="col g-3 py-4">
-        <div class="row">
+        <div class="container">
             <h1>Buscar:</h2>
+            <div class="row row-cols-2">
+                <div class="col-9 form-floating mx-3">
+                    <input class="form-control mb-3 w-100" id="user" type="text">
+                    <label for="user">Buscar por Nombre</label>
+                </div>
+                <div class="col-2 p-1">
+                    <button class="btn btn-lg btn-success mb-3" onclick="updateUrl()" type="button">Buscar</button>
+                </div>
+            </div>
+            <div classs="row">
+                <label class="mx-3" for="attribute">Buscar por</label>
+                <select class="form-select-md mb-3" name="attribute" id="attribute">
+                    <option value="fecha">Fecha</option>
+                    <option value="puntuacion">Puntuación</option>
+                </select>
+                <label class="mx-3" for="date">Fecha</label>
+                <input class="form-date-md mb-3" type="date" id="date" name="date">
+                <label class="mx-3" for="order">Orden</label>
+                <select class="form-select-md mb-3" name="order" id="order">
+                    <option value="0">Descendente</option>
+                    <option value="1">Ascendente</option>
+                </select>
+            </div>
         </div>
         <div class="row">
+            <div>{% include 'partials/_msgalert.html' %}</div>
             <div>{% include 'partials/_tableresults.html' %}</div>
         </div>
     </div>
 </div>
-
+<script src={% static 'js/buscadorPartidas.js' %}></script>
 {% endblock %}

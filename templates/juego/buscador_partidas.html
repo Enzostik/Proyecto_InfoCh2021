@@ -8,13 +8,16 @@
         <div class="row">
             <h1>Buscar:</h2>
                 <div class="container">
-                    <input id="user" type="text" value="Nombre del usuario"
-                        onfocus="if(this.value=='Nombre del usuario')this.value=''"
-                        onblur="if(this.value=='')this.value='Nombre del usuario'" />
+                    <input id="user" type="text" />
                     <label for="order">Orden</label>
                     <select name="order" id="order">
-                        <option value="0">Ascendente</option>
-                        <option value="1">Descendente</option>
+                        <option value="0">Descendente</option>
+                        <option value="1">Ascendente</option>
+                    </select>
+                    <label for="attribute">Buscar por</label>
+                    <select name="attribute" id="attribute">
+                        <option value="fecha">Fecha</option>
+                        <option value="puntuacion">Puntuación</option>
                     </select>
                     <label for="date">Fecha</label>
                     <input type="date" id="date" name="date">

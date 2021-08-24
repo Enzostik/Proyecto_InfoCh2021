@@ -162,8 +162,9 @@ def buscador(request):
         #arma la fecha en el formato correcto de la db
         fecha=fecha.split("-")
         fecha=[int(i) for i in fecha]
-        print(fecha)
         fecha=date(fecha[0],fecha[1],fecha[2])
+        print(fecha)
+        print([i.fecha for i in partidas])
         #lo filtra
         partidas=partidas.filter(fecha__contains=fecha)
 

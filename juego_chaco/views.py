@@ -158,13 +158,11 @@ def buscador(request):
             not_found=True
     else: #en caso contrario busca todas las partidas en la db
         partidas=Partida.objects.all().order_by(orden+atributo)
-    if fecha:
+    if fecha and not not_found:
         #arma la fecha en el formato correcto de la db
         fecha=fecha.split("-")
         fecha=[int(i) for i in fecha]
         fecha=date(fecha[0],fecha[1],fecha[2])
-        print(fecha)
-        print([i.fecha for i in partidas])
         #lo filtra
         partidas=partidas.filter(fecha__contains=fecha)
 

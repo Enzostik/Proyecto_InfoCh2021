@@ -8,7 +8,7 @@
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v11.0" nonce="KUqekCAc"></script>
 
 <div class="container">
-    <section class="card border-light py-2 text-center">
+    <section class="card border-light py-2 text-center" style="background-image: url({% static 'img/modo-web-diseno-de-pagina-web-fondo-05.jpg'%}); background-repeat: no-repeat;background-size: cover;">
         <div class="row py-lg-5">
             <div class="col-lg-6 col-md-8 mx-auto">
                 <h1 class="fw-light">Prueba el cuestionario de la Provincialización del Chaco</h1>
@@ -21,6 +21,7 @@
                 <p class="lead">Inicia sesión para poder jugar!</p>
                 <p>
                     <a href={% url 'login' %} class="btn btn-primary my-1">Iniciar sesión</a>
+                    <p>¿No tienes una cuenta? <a href={% url 'register' %} > Registrarse!</a></p>
                 </p>
                 {% endif %}
             </div>

@@ -35,7 +35,9 @@
     </div>
     <input type="hidden" name="next" value="{{ request.GET.next }}"/>
     <button class="w-100 btn btn-lg btn-primary" type="submit">Acceder</button>
+    
   </form>
+  <p>¿No tienes una cuenta? <a href={% url 'register' %}> Registrarse! </a></p>
   </div>
 </main>
 {% endblock content %}

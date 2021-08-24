@@ -7,7 +7,7 @@
 
 {% block content %}
 
-<div class="container border border-white border-2 color-profile-2">
+<div class="container border border-white border-2 color-profile-2" style="opacity: 0.97;">
     <div class="row row-cols-1 row-cols-md-2 g-3 py-4">
         <div class="col">
         <h1 class="display-6">Perfil del usuario: {{usuario.username}}</h1>
@@ -31,14 +31,14 @@
             </div>
             {% if user == usuario %}
                 <p>
-                <button class="btn btn-success btn-lg"><a href="{% url 'profile' %}">Editar Perfil</a></button>
+                <button class="btn btn-success btn-lg"><a href="{% url 'profile' %}" style="text-decoration: none;">Editar Perfil</a></button>
                 Tu perfil es {% if user.perfilusuario.visibilidad_perfil %}público{% else %}privado{% endif %}</p>
             {% endif %}
             
-        {% else %}
-                <hr>
-                <p> El perfil de este usuario es privado</p>
-        {% endif %}
+            {% else %}
+                    <hr>
+                    <p> El perfil de este usuario es privado</p>
+            {% endif %}
         </div>
         </div>
         <div class="col">

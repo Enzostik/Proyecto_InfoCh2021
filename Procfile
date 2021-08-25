@@ -1,0 +1,1 @@
+web: gunicorn Proyecto_InfoCh2021.wsgi

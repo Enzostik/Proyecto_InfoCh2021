@@ -1,3 +1,4 @@
+import django_heroku
 """
 Django settings for Proyecto_InfoCh2021 project.
 
@@ -23,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-$1ssq+@i5$!7e=w#$_dyh3hv7#%1#@#%f8*#slbr63uxb0ondn'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True 
+DEBUG = False 
 
-ALLOWED_HOSTS = ['127.0.0.1','localhost','192.168.0.18']
+ALLOWED_HOSTS = ['grupo14-informatorio.herokuapp.com']
 
 
 # Application definition
@@ -44,6 +45,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -122,9 +124,14 @@ USE_TZ = False
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS=[Path.joinpath(BASE_DIR,'Proyecto_InfoCh2021/static')] #carpeta /Proyecto_InfoCh2021/static
-STATIC_ROOT=Path.joinpath(BASE_DIR,'static') 
+STATIC_ROOT= BASE_DIR/'static'
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Activate Django-Heroku.   SIEMPRE AL FINAL
+django_heroku.settings(locals())

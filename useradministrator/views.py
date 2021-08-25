@@ -5,7 +5,7 @@ from django.http.response import Http404, HttpResponseRedirect
 
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required, permission_required
-from datetime import datetime
+from datetime import datetime, date, timedelta
 
 #Paginas solo para administradores:
 
@@ -22,8 +22,22 @@ def admin_usuarios(request):
 
 def admin_actividades(request):
     lista_partidas=Partida.objects.all()
-    print(lista_partidas)
-    context={"partidas":lista_partidas}
+    #armar un diccionario para las estadísticas generales
+    fecha_hoy=date.today()
+    partidas_hoy=lista_partidas.filter(fecha__contains=fecha_hoy)
+    partidas_semana=lista_partidas.filter(fecha__week=fecha_hoy.isocalendar().week)
+    partidas_mes=lista_partidas.filter(fecha__contains=fecha_hoy.month)
+    estadisticas={
+        "total":len(lista_partidas),
+        "mejor":lista_partidas.order_by('-puntuacion').first(),
+        "diario":len(partidas_hoy),
+        "mejor_diario":partidas_hoy.order_by('-puntuacion').first(),
+        "semanal":len(partidas_semana),
+        "mejor_semanal":partidas_semana.order_by('-puntuacion').first(),
+        "mensual":len(partidas_mes),
+        "mejor_mes":partidas_mes.order_by('-puntuacion').first(),
+    }
+    context={"partidas":lista_partidas,"estadisticas":estadisticas}
     return render(request,'admin/admin_actividades.html',context)
 
 def admin_cuestionarios(request):
@@ -36,8 +50,7 @@ def crear_pregunta(request,id):
     pregunta.save()
     for i in range(5):
         respuesta=Respuesta(id_pregunta=pregunta,es_correcta=False,respuesta="Nueva respuesta")
-        respuesta.save()
-    print(pregunta.pk)        
+        respuesta.save() 
     return HttpResponseRedirect('/editar/ver/%d'%pregunta.pk)
 
 def borrar_pregunta(request, id):

@@ -11,6 +11,15 @@
     <div class="row row-cols-1 row-cols-md-2 g-3 py-4">
         <div class="col">
         <h1 class="display-6">Perfil del usuario: {{usuario.username}}</h1>
+            {% if user.is_superuser and user != usuario%}
+            <form method="POST">
+                {% csrf_token %}
+                <div>
+                    <input type="hidden" name="permisousuario" value={{tipo}}>
+                    <p>Este usuario es {% if tipo %}ADMINISTRADOR{% else %}participante{% endif %}</p><button class="btn btn-sm btn-danger" type="submit">DAR/QUITAR PERMISOS</button>
+                </div>
+            </form>
+            {% endif %}
             {% if visibilidad %}
             <div class="col">
         <!--        <p>Soy visible</p>-->

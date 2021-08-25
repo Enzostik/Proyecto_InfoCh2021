@@ -1,5 +1,5 @@
 from django.forms.forms import Form
-from .models import PerfilUsuario
+from .models import PerfilUsuario, Permisos
 from .forms import edit_profile
 from juego_chaco.views import revisar_partida, buscar_partida
 from django.http.response import Http404, HttpResponseRedirect
@@ -14,7 +14,8 @@ from django.contrib.auth import login as do_login
 from django.contrib.auth import logout as do_logout
 from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required, permission_required
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Permission
+from django.contrib.contenttypes.models import ContentType
 
 #lista para carácteres inválidos para los nombres de usuarios
 invalid_chr=[
@@ -82,7 +83,6 @@ def register(request):
         if len(username)<8:
             messages.add_message(request, messages.ERROR, 'El nombre de usuario debe tener más de 8 carácteres')
             context['is_error']=True
-        print([i in username for i in invalid_chr])
         if (True in [i in username for i in invalid_chr]):
             messages.add_message(request, messages.ERROR, f'Carácteres no permitidos para tu nombre de usuario {invalid_chr}')
             context['is_error']=True
@@ -127,11 +127,8 @@ def profile(request):
     context={"form":form,"is_error":False} #asigna un nombre a la base de datos
     if request.method=="POST":
         form=edit_profile(request.POST)
-        print(form)
         if form.is_valid():
             form=form.clean()
-            print(form)
-
             #para revisar los errores
             if not form['nombre'] or not form['apellido'] or not form['provincia'] or not form['correo']:
                 messages.add_message(request, messages.ERROR, 'Complete todos los campos requeridos')
@@ -169,11 +166,21 @@ def profile(request):
 def ver_usuario(request,id):
     usuario_obj=User.objects.get(pk=id)
     usuario_soy=request.user
+    if request.method=="POST" and usuario_soy.is_superuser:
+        content_type = ContentType.objects.get_for_model(Permisos)
+        authuser=Permission.objects.get(codename='es_usuario_admin',content_type=content_type,)
+        user_permiso=request.POST.get('permisousuario')
+        if user_permiso=="False":
+            usuario_obj.user_permissions.add(authuser)
+        else:
+            usuario_obj.user_permissions.remove(authuser)
+        usuario_obj.save()
+        return redirect("/user/%d"%usuario_obj.pk)
     #Verifica si el se tienen parmisos admin | si la cuenta es publica | si es la cuenta del usuario
     datos = mi_check_user(usuario_soy,usuario_obj)
-
+    permisos=usuario_obj.has_perm('authusuario.es_usuario_admin')
     #para la tabla de partidas jugadas en el parfil
     pag = request.GET.get('page', 1)
     partidas= revisar_partida(buscar_partida(usuario_obj,"fecha"),int(pag),10)
-    context={"usuario":usuario_obj,"visibilidad":datos,"partidas":partidas,"ranking":False}
+    context={"usuario":usuario_obj,"tipo":permisos,"visibilidad":datos,"partidas":partidas,"ranking":False}
     return render(request, 'user/user.html',context)

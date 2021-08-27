@@ -44,22 +44,22 @@
       <tr>
           <td>Diario</td>
           <td>{{estadisticas.diario}}</td>
-          <td>{{estadisticas.mejor_diario.usuario}} ({{estadisticas.mejor_diario.puntuacion}}pts.) - <a href={% url 'ver-partida' estadisticas.mejor_diario.pk %}>Link</a></td>
+          <td>{% if estadisticas.mejor_diario.usuario %}{{estadisticas.mejor_diario.usuario}} ({{estadisticas.mejor_diario.puntuacion}}pts.) - <a href={% url 'ver-partida' estadisticas.mejor_diario.pk %}>Link</a>{% endif %}</td>
       <tr>
       <tr>
           <td>Semanal</td>
           <td>{{estadisticas.semanal}}</td>
-          <td>{{estadisticas.mejor_semanal.usuario}} ({{estadisticas.mejor_semanal.puntuacion}}pts.) - <a href={% url 'ver-partida' estadisticas.mejor_semanal.pk %}>Link</a></td>
+          <td>{% if estadisticas.mejor_semanal.usuario %}{{estadisticas.mejor_semanal.usuario}} ({{estadisticas.mejor_semanal.puntuacion}}pts.) - <a href={% url 'ver-partida' estadisticas.mejor_semanal.pk %}>Link</a>{% endif %}</td>
       <tr>
       <tr>
           <td>Mensual</td>
           <td>{{estadisticas.mensual}}</td>
-          <td>{{estadisticas.mejor_mes.usuario}} ({{estadisticas.mejor_mes.puntuacion}}pts.) - <a href={% url 'ver-partida' estadisticas.mejor_mes.pk %}>Link</a></td>
+          <td>{% if estadisticas.mejor_mes.usuario %}{{estadisticas.mejor_mes.usuario}} ({{estadisticas.mejor_mes.puntuacion}}pts.) - <a href={% url 'ver-partida' estadisticas.mejor_mes.pk %}>Link</a>{% endif %}</td>
       <tr>
       <tr>
           <td>TOTAL</td>
           <td>{{estadisticas.total}}</td>
-          <td>{{estadisticas.mejor.usuario}} ({{estadisticas.mejor.puntuacion}}pts.) - <a href={% url 'ver-partida' estadisticas.mejor.pk %}>Link</a></td>
+          <td>{% if estadisticas.mejor.usuario %}{{estadisticas.mejor.usuario}} ({{estadisticas.mejor.puntuacion}}pts.) - <a href={% url 'ver-partida' estadisticas.mejor.pk %}>Link</a>{% endif %}</td>
       <tr>
     </tbody>
   </table>
